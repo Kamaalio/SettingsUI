@@ -12,7 +12,9 @@ struct ContentView: View {
     @State private var iCloudSyncingIsEnabled = false
 
     var body: some View {
-        SettingsScreen(iCloudSyncingIsEnabled: $iCloudSyncingIsEnabled, configuration: SettingsConfiguration(donations: []))
+        NavigationStack {
+            SettingsScreen(iCloudSyncingIsEnabled: $iCloudSyncingIsEnabled, configuration: SettingsConfiguration(donations: []))
+        }
     }
 }
 

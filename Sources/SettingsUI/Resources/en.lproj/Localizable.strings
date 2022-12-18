@@ -1,1 +1,13 @@
+/*
+  Localizable.strings
+  SettingsUI
 
+  Created by Kamaal Farah on 18/12/2022.
+  Copyright © 2022 Kamaal. All rights reserved.
+*/
+
+"Support Author" = "Support Author";
+"Buy me coffee" = "Buy me coffee";
+"Settings" = "Settings";
+"Buy me a %@" = "Buy me a %@"; // %@ as in the item to buy
+"Purchasing" = "Purchasing";

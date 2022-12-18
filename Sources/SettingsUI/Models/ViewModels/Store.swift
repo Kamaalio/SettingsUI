@@ -24,6 +24,7 @@ final class Store: NSObject, ObservableObject {
     private var storeKitDonations: [StoreKitDonation.ID: StoreKitDonation] = [:]
     private var purchasedIdentifiersToTimesPurchased: [String: Int] = [:]
     private var updateListenerTask: Task<Void, Never>?
+    private var purchasingTask: Task<Void, Never>?
     private var products: [Product] = []
 
     private override init() { }
@@ -49,6 +50,7 @@ final class Store: NSObject, ObservableObject {
         case getProducts
         case purchaseError(causeError: Error?)
         case noTransactionMade
+        case canNotMakePayment
     }
 
     var hasDonations: Bool {
@@ -57,6 +59,29 @@ final class Store: NSObject, ObservableObject {
 
     var canMakePayments: Bool {
         SKPaymentQueue.canMakePayments() && (!isLoading || !isPurchasing)
+    }
+
+    func purchaseDonation(_ donation: CustomProduct, completion: @escaping (Result<Transaction, Errors>) -> Void) {
+        guard canMakePayments, let foundProduct = products.find(by: \.id, is: donation.id) else {
+            completion(.failure(.canNotMakePayment))
+            return
+        }
+
+        purchasingTask?.cancel()
+        purchasingTask = Task {
+            let result = await verifyAndPurchase(foundProduct)
+            let transaction: Transaction
+            switch result {
+            case let .failure(failure):
+                logger.error(label: "failed to verify or purchase product", error: failure)
+                completion(.failure(failure))
+                return
+            case let .success(success):
+                transaction = success
+            }
+
+            completion(.success(transaction))
+        }
     }
 
     func requestProducts() async -> Result<Void, Errors> {
@@ -99,6 +124,14 @@ final class Store: NSObject, ObservableObject {
         return result
     }
 
+    @MainActor
+    private func withIsPurchasing<T>(completion: () async -> T) async -> T {
+        isPurchasing = true
+        let result = await completion()
+        isPurchasing = false
+        return result
+    }
+
     private func productToCustomProduct(_ product: Product) -> CustomProduct? {
         let displayName = product.displayName
 
@@ -121,7 +154,7 @@ final class Store: NSObject, ObservableObject {
     /// - Returns: a Task result that does not return anything and does not fail
     private func listenForTransactions() -> Task<Void, Never> {
         Task.detached { [weak self] in
-            guard let self else { return }
+            guard let self, !self.storeKitDonations.isEmpty else { return }
 
             // Iterate through any transactions which didn't come from a direct call to `purchase()`.
             for await result in Transaction.updates {
@@ -138,6 +171,42 @@ final class Store: NSObject, ObservableObject {
                 await transaction.finish()
             }
         }
+    }
+
+    private func verifyAndPurchase(_ product: Product) async -> Result<Transaction, Errors> {
+        await withIsPurchasing(completion: {
+            await withLoading(completion: {
+                logger.info("purchasing product with id \(product.id)")
+
+                let purchaseResult: Product.PurchaseResult
+                do {
+                    purchaseResult = try await product.purchase()
+                } catch {
+                    logger.error(label: "failed to purchase product", error: error)
+                    return .failure(.purchaseError(causeError: error))
+                }
+
+                let verification: VerificationResult<Transaction>
+                switch purchaseResult {
+                case .pending, .userCancelled: return .failure(.noTransactionMade)
+                case let .success(success): verification = success
+                default: return .failure(.noTransactionMade)
+                }
+
+                let transaction: Transaction
+                switch checkVerified(verification) {
+                case let .failure(failure):
+                    return .failure(failure)
+                case let .success(success):
+                    transaction = success
+                }
+
+                await updatePurchasedIdentifiers(transaction)
+                await transaction.finish()
+                logger.info("successfully purchased product with id \(transaction.productID)")
+                return .success(transaction)
+            })
+        })
     }
 
     private func checkVerified<T>(_ result: VerificationResult<T>) -> Result<T, Errors> {

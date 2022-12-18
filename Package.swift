@@ -16,9 +16,10 @@ let package = Package(
             targets: ["SettingsUI"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/kamaal111/Logster.git", "1.1.0" ..< "2.0.0"),
-        .package(url: "https://github.com/kamaal111/SalmonUI.git", "5.1.0" ..< "6.0.0"),
-        .package(url: "https://github.com/kamaal111/ShrimpExtensions.git", "3.0.0" ..< "4.0.0"),
+        .package(url: "https://github.com/Kamaalio/Logster.git", "1.1.0" ..< "2.0.0"),
+        .package(url: "https://github.com/Kamaalio/SalmonUI.git", "5.1.0" ..< "6.0.0"),
+        .package(url: "https://github.com/Kamaalio/ShrimpExtensions.git", "3.0.0" ..< "4.0.0"),
+        .package(url: "https://github.com/simibac/ConfettiSwiftUI.git", "1.0.0" ..< "2.0.0"),
     ],
     targets: [
         .target(
@@ -27,6 +28,7 @@ let package = Package(
                 "Logster",
                 "SalmonUI",
                 "ShrimpExtensions",
+                "ConfettiSwiftUI",
             ],
             resources: [
                 .process("Resources"),

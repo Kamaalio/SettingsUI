@@ -20,12 +20,15 @@ public struct SettingsScreen: View {
 
     public var body: some View {
         KScrollableForm {
-            Text("Hello, World!")
+            if store.hasDonations {
+                SupportAuthorSection()
+                    .environmentObject(store)
+            }
         }
         .onAppear(perform: handleOnAppear)
+        .navigationTitle(localizedTitle: "Settings", comment: "", displayMode: .large)
         #if os(macOS)
-        .padding(.vertical, 16)
-        .padding(.horizontal, 16)
+        .padding(.all, .medium)
         .ktakeSizeEagerly(alignment: .topLeading)
         #endif
     }

@@ -21,7 +21,6 @@
 		2C647231294E5A7E0075EC9C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2C647233294E5A7E0075EC9C /* Example.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Example.entitlements; sourceTree = "<group>"; };
 		2C647235294E5A7E0075EC9C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		2C64723D294E5AF90075EC9C /* SettingsUI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = SettingsUI; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -39,10 +38,9 @@
 		2C647221294E5A7B0075EC9C = {
 			isa = PBXGroup;
 			children = (
-				2C64723C294E5AF90075EC9C /* Packages */,
 				2C64722C294E5A7B0075EC9C /* Example */,
-				2C64722B294E5A7B0075EC9C /* Products */,
 				2C64723E294E5B100075EC9C /* Frameworks */,
+				2C64722B294E5A7B0075EC9C /* Products */,
 			);
 			sourceTree = "<group>";
 		};
@@ -72,14 +70,6 @@
 				2C647235294E5A7E0075EC9C /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
-			sourceTree = "<group>";
-		};
-		2C64723C294E5AF90075EC9C /* Packages */ = {
-			isa = PBXGroup;
-			children = (
-				2C64723D294E5AF90075EC9C /* SettingsUI */,
-			);
-			name = Packages;
 			sourceTree = "<group>";
 		};
 		2C64723E294E5B100075EC9C /* Frameworks */ = {
