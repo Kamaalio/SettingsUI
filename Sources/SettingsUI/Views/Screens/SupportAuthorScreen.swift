@@ -8,16 +8,19 @@
 import Logster
 import SwiftUI
 import SalmonUI
+import PopperUp
 import ConfettiSwiftUI
 
 struct SupportAuthorScreen: View {
     @EnvironmentObject private var store: Store
 
     @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
+    @Environment(\.colorScheme) private var colorScheme: ColorScheme
 
     @State private var confettiTimesRun = 0
     @State private var numberOfConfettis = 20
     @State private var confettiRepetitions = 0
+    @State private var showToast = false
 
     var body: some View {
         KScrollableForm {
@@ -51,13 +54,23 @@ struct SupportAuthorScreen: View {
         .ktakeSizeEagerly(alignment: .topLeading)
         .onAppear(perform: handleAppear)
         .confettiCannon(counter: $confettiTimesRun, num: numberOfConfettis, repetitions: confettiRepetitions)
+        .popperUpLite(
+            isPresented: $showToast,
+            style: .bottom(
+                title: "Sorry, something went wrong".localized(comment: ""),
+                type: .error,
+                description: "Failed to make purchase".localized(comment: "")),
+            backgroundColor: colorScheme == .dark ? .black : .white)
     }
 
     private func handlePurchase(_ donation: CustomProduct) {
         store.purchaseDonation(donation) { result in
             switch result {
-            case let .failure(failure):
-                #error("Handle error with toast")
+            case .failure:
+                showToast = true
+                DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                    showToast = false
+                }
                 return
             case .success:
                 break

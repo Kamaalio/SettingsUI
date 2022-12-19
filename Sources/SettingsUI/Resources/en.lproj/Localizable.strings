@@ -11,3 +11,5 @@
 "Settings" = "Settings";
 "Buy me a %@" = "Buy me a %@"; // %@ as in the item to buy
 "Purchasing" = "Purchasing";
+"Sorry, something went wrong" = "Sorry, something went wrong";
+"Failed to make purchase" = "Failed to make purchase";

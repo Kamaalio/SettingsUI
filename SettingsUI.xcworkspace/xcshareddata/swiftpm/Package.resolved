@@ -19,6 +19,15 @@
       }
     },
     {
+      "identity" : "popperup",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Kamaalio/PopperUp.git",
+      "state" : {
+        "revision" : "38e093e44197234bf9a6cf77afe8dd36fd861e7c",
+        "version" : "0.4.0"
+      }
+    },
+    {
       "identity" : "salmonui",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/Kamaalio/SalmonUI.git",
