@@ -17,10 +17,7 @@ struct SupportAuthorScreen: View {
     @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
     @Environment(\.colorScheme) private var colorScheme: ColorScheme
 
-    @State private var confettiTimesRun = 0
-    @State private var numberOfConfettis = 20
-    @State private var confettiRepetitions = 0
-    @State private var showToast = false
+    @StateObject private var viewModel = ViewModel()
 
     var body: some View {
         KScrollableForm {
@@ -53,9 +50,9 @@ struct SupportAuthorScreen: View {
         .navigationTitle(localizedTitle: "Support Author", comment: "", displayMode: .large)
         .ktakeSizeEagerly(alignment: .topLeading)
         .onAppear(perform: handleAppear)
-        .confettiCannon(counter: $confettiTimesRun, num: numberOfConfettis, repetitions: confettiRepetitions)
+        .confettiCannon(counter: $viewModel.confettiTimesRun, num: viewModel.numberOfConfettis, repetitions: viewModel.confettiRepetitions)
         .popperUpLite(
-            isPresented: $showToast,
+            isPresented: $viewModel.showToast,
             style: .bottom(
                 title: "Sorry, something went wrong".localized(comment: ""),
                 type: .error,
@@ -67,28 +64,13 @@ struct SupportAuthorScreen: View {
         store.purchaseDonation(donation) { result in
             switch result {
             case .failure:
-                showToast = true
-                DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                    showToast = false
-                }
+                viewModel.openToast()
                 return
             case .success:
                 break
             }
 
-            shootConfetti(for: donation)
-        }
-    }
-
-    private func shootConfetti(for donation: CustomProduct) {
-        let weight = donation.weight
-
-        DispatchQueue.main.async {
-            if weight > 0 {
-                confettiRepetitions = weight - 1
-            }
-            numberOfConfettis = 20 * weight
-            confettiTimesRun += 1
+            viewModel.shootConfetti(for: donation)
         }
     }
 
@@ -101,6 +83,48 @@ struct SupportAuthorScreen: View {
             case .success:
                 break
             }
+        }
+    }
+}
+
+private final class ViewModel: ObservableObject {
+    @Published var confettiTimesRun = 0
+    @Published private(set) var numberOfConfettis = 20
+    @Published private(set) var confettiRepetitions = 0
+    @Published var showToast = false
+    private var toastTimer: Timer?
+
+    func shootConfetti(for donation: CustomProduct) {
+        let weight = donation.weight
+
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
+
+            if weight > 0 {
+                self.confettiRepetitions = weight - 1
+            }
+            self.numberOfConfettis = 20 * weight
+            self.confettiTimesRun += 1
+        }
+    }
+
+    func openToast() {
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
+
+            if self.toastTimer != nil {
+                self.toastTimer!.invalidate()
+                self.toastTimer = nil
+            }
+
+            self.showToast = true
+            self.toastTimer = Timer.scheduledTimer(withTimeInterval: 3, repeats: false, block: { [weak self] _ in
+                guard let self else { return }
+
+                self.showToast = false
+                self.toastTimer?.invalidate()
+                self.toastTimer = nil
+            })
         }
     }
 }
