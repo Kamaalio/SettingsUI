@@ -12,7 +12,7 @@ struct SupportAuthorSection: View {
     @EnvironmentObject private var store: Store
 
     var body: some View {
-        KSection(header: NSLocalizedString("Support Author", bundle: .module, comment: "")) {
+        KSection(header: "Support Author".localized(comment: "")) {
             NavigationLinkImageRow(
                 localizedLabel: "Buy me coffee",
                 comment: "",

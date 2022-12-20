@@ -47,7 +47,7 @@ struct SupportAuthorScreen: View {
             }
             .padding(.all, .medium)
         }
-        .navigationTitle(localizedTitle: "Support Author", comment: "", displayMode: .large)
+        .navigationTitle(localizedTitle: "Support Author", comment: "", displayMode: .inline)
         .ktakeSizeEagerly(alignment: .topLeading)
         .onAppear(perform: handleAppear)
         .confettiCannon(counter: $viewModel.confettiTimesRun, num: viewModel.numberOfConfettis, repetitions: viewModel.confettiRepetitions)

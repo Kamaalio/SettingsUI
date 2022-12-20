@@ -32,12 +32,7 @@ final class Store: NSObject, ObservableObject {
     init(donations: [StoreKitDonation]) {
         super.init()
 
-        self.storeKitDonations = donations
-            .reduce([:], {
-                var result = $0
-                result[$1.id] = $1
-                return result
-            })
+        self.storeKitDonations = donations.mappedByID
         self.updateListenerTask = listenForTransactions()
     }
 
