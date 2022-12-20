@@ -27,7 +27,7 @@ public struct SettingsScreen: View {
                 SupportAuthorSection()
                     .environmentObject(store)
             }
-            if configuration.gitHubToken != nil {
+            if configuration.feedback != nil {
                 FeedbackSection()
             }
         }

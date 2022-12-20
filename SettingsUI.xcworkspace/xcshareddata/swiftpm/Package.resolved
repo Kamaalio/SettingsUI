@@ -10,6 +10,15 @@
       }
     },
     {
+      "identity" : "githubapi",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/kamaal111/GitHubAPI.git",
+      "state" : {
+        "revision" : "61cf801b44ad22cbce46235231f91075e482b58e",
+        "version" : "0.1.2"
+      }
+    },
+    {
       "identity" : "logster",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/Kamaalio/Logster.git",
@@ -43,6 +52,15 @@
       "state" : {
         "revision" : "905f3cd824d34f00a98ecd7b7b276b5a489956fd",
         "version" : "3.0.0"
+      }
+    },
+    {
+      "identity" : "xiphiasnet",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/kamaal111/XiphiasNet.git",
+      "state" : {
+        "revision" : "b8c2bd983f6c6df1338fdebc1d5b4740119b745b",
+        "version" : "7.0.0"
       }
     }
   ],

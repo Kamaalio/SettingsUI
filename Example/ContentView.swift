@@ -15,7 +15,10 @@ struct ContentView: View {
         NavigationStack {
             SettingsScreen(
                 iCloudSyncingIsEnabled: $iCloudSyncingIsEnabled,
-                configuration: SettingsConfiguration(donations: [], gitHubToken: "GITHUB_TOKEN"))
+                configuration: SettingsConfiguration(donations: [], feedback: .init(
+                    token: "GITHUB_TOKEN",
+                    username: "name",
+                    repoName: "Example")))
         }
     }
 }

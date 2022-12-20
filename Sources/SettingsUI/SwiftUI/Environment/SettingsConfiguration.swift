@@ -9,11 +9,38 @@ import SwiftUI
 
 public struct SettingsConfiguration: Hashable {
     public let donations: [StoreKitDonation]
-    public let gitHubToken: String?
+    public let feedback: Feedback?
 
-    public init(donations: [StoreKitDonation], gitHubToken: String? = nil) {
+    public init(donations: [StoreKitDonation], feedback: Feedback? = nil) {
         self.donations = donations
-        self.gitHubToken = gitHubToken
+        self.feedback = feedback
+    }
+
+    public struct Feedback: Hashable {
+        public let token: String
+        public let username: String
+        public let repoName: String
+        public let additionalLabels: [String]
+        public let additionalData: Data?
+
+        public init(
+            token: String,
+            username: String,
+            repoName: String,
+            additionalLabels: [String] = [],
+            additionalData: Data? = nil) {
+                self.token = token
+                self.username = username
+                self.repoName = repoName
+                self.additionalLabels = additionalLabels
+                self.additionalData = additionalData
+            }
+
+        var additionalDataString: String? {
+            guard let additionalData else { return nil }
+
+            return String(data: additionalData, encoding: .utf8)
+        }
     }
 }
 
@@ -25,5 +52,5 @@ extension EnvironmentValues {
 }
 
 struct SettingsConfigurationKey: EnvironmentKey {
-    static let defaultValue: SettingsConfiguration = SettingsConfiguration(donations: [], gitHubToken: nil)
+    static let defaultValue: SettingsConfiguration = SettingsConfiguration(donations: [], feedback: nil)
 }

@@ -20,3 +20,5 @@
 "Title" = "Title";
 "Description" = "Description";
 "Send" = "Send";
+"Feedback sent" = "Feedback sent";
+"Could not send feedback" = "Could not send feedback";
