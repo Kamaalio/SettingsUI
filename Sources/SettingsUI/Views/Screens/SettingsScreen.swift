@@ -11,12 +11,9 @@ import SalmonUI
 public struct SettingsScreen: View {
     @StateObject private var store: Store
 
-    @Binding public var iCloudSyncingIsEnabled: Bool
-
     let configuration: SettingsConfiguration
 
-    public init(iCloudSyncingIsEnabled: Binding<Bool>, configuration: SettingsConfiguration) {
-        self._iCloudSyncingIsEnabled = iCloudSyncingIsEnabled
+    public init(configuration: SettingsConfiguration) {
         self._store = StateObject(wrappedValue: Store(donations: configuration.donations))
         self.configuration = configuration
     }
@@ -30,6 +27,7 @@ public struct SettingsScreen: View {
             if configuration.feedback != nil {
                 FeedbackSection()
             }
+            PersonalizationSection()
         }
         .onAppear(perform: handleOnAppear)
         .navigationTitle(localizedTitle: "Settings", comment: "", displayMode: .large)
@@ -49,6 +47,6 @@ public struct SettingsScreen: View {
 
 struct SettingsScreen_Previews: PreviewProvider {
     static var previews: some View {
-        SettingsScreen(iCloudSyncingIsEnabled: .constant(false), configuration: SettingsConfiguration(donations: []))
+        SettingsScreen(configuration: SettingsConfiguration(donations: []))
     }
 }

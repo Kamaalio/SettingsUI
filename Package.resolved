@@ -1,18 +1,45 @@
 {
   "pins" : [
     {
+      "identity" : "confettiswiftui",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/simibac/ConfettiSwiftUI.git",
+      "state" : {
+        "revision" : "8d3a15d0aa2991e0761749b767ef8d89bca6275a",
+        "version" : "1.0.1"
+      }
+    },
+    {
+      "identity" : "githubapi",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/kamaal111/GitHubAPI.git",
+      "state" : {
+        "revision" : "61cf801b44ad22cbce46235231f91075e482b58e",
+        "version" : "0.1.2"
+      }
+    },
+    {
       "identity" : "logster",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/kamaal111/Logster.git",
+      "location" : "https://github.com/Kamaalio/Logster.git",
       "state" : {
         "revision" : "c16009fc4ca6a6e8948fca05070f0b095a7096ee",
         "version" : "1.1.0"
       }
     },
     {
+      "identity" : "popperup",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Kamaalio/PopperUp.git",
+      "state" : {
+        "revision" : "38e093e44197234bf9a6cf77afe8dd36fd861e7c",
+        "version" : "0.4.0"
+      }
+    },
+    {
       "identity" : "salmonui",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/kamaal111/SalmonUI.git",
+      "location" : "https://github.com/Kamaalio/SalmonUI.git",
       "state" : {
         "revision" : "add6319b93b53a7330d82a06c66e11c6c5b13d30",
         "version" : "5.1.0"
@@ -21,10 +48,19 @@
     {
       "identity" : "shrimpextensions",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/kamaal111/ShrimpExtensions.git",
+      "location" : "https://github.com/Kamaalio/ShrimpExtensions.git",
       "state" : {
         "revision" : "905f3cd824d34f00a98ecd7b7b276b5a489956fd",
         "version" : "3.0.0"
+      }
+    },
+    {
+      "identity" : "xiphiasnet",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/kamaal111/XiphiasNet.git",
+      "state" : {
+        "revision" : "b8c2bd983f6c6df1338fdebc1d5b4740119b745b",
+        "version" : "7.0.0"
       }
     }
   ],

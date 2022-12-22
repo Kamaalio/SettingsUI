@@ -14,7 +14,6 @@ struct ContentView: View {
     var body: some View {
         NavigationStack {
             SettingsScreen(
-                iCloudSyncingIsEnabled: $iCloudSyncingIsEnabled,
                 configuration: SettingsConfiguration(donations: [], feedback: .init(
                     token: "GITHUB_TOKEN",
                     username: "name",
