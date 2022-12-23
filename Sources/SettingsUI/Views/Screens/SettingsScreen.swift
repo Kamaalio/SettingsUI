@@ -33,6 +33,7 @@ public struct SettingsScreen: View {
             if configuration.featuresIsConfigured {
                 FeaturesSection()
             }
+            MiscellaneousSection()
         }
         .accentColor(configuration.currentColor)
         .onAppear(perform: handleOnAppear)
