@@ -21,6 +21,7 @@
 		2C647231294E5A7E0075EC9C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2C647233294E5A7E0075EC9C /* Example.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Example.entitlements; sourceTree = "<group>"; };
 		2C647235294E5A7E0075EC9C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		2CB1CF2E2955F9F900308390 /* Donations.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = Donations.storekit; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,10 +56,11 @@
 		2C64722C294E5A7B0075EC9C /* Example */ = {
 			isa = PBXGroup;
 			children = (
-				2C64722D294E5A7B0075EC9C /* ExampleApp.swift */,
-				2C64722F294E5A7B0075EC9C /* ContentView.swift */,
-				2C647231294E5A7E0075EC9C /* Assets.xcassets */,
 				2C647233294E5A7E0075EC9C /* Example.entitlements */,
+				2CB1CF2E2955F9F900308390 /* Donations.storekit */,
+				2C64722F294E5A7B0075EC9C /* ContentView.swift */,
+				2C64722D294E5A7B0075EC9C /* ExampleApp.swift */,
+				2C647231294E5A7E0075EC9C /* Assets.xcassets */,
 				2C647234294E5A7E0075EC9C /* Preview Content */,
 			);
 			path = Example;

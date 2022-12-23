@@ -15,7 +15,7 @@ struct ContentView: View {
         NavigationStack {
             SettingsScreen(
                 configuration: SettingsConfiguration(
-                    donations: [],
+                    donations: donations,
                     feedback: .init(
                         token: "GITHUB_TOKEN",
                         username: "name",
@@ -40,6 +40,12 @@ struct ContentView: View {
     private func randomToolbarButtonAction() { }
     #endif
 }
+
+let donations: [StoreKitDonation] = [
+    .init(id: "io.kamaal.Example.Carrot", emoji: "🥕", weight: 1),
+    .init(id: "io.kamaal.Example.House", emoji: "🏡", weight: 20),
+    .init(id: "io.kamaal.Example.Ship", emoji: "🚢", weight: 69),
+]
 
 let appColors: [AppColor] = [
     .init(id: UUID(uuidString: "1f6f9ac4-1ca6-4f77-880b-01580881a9b4")!, name: "Default", color: Color("AccentColor")),
