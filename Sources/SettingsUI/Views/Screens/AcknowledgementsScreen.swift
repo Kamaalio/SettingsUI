@@ -6,11 +6,37 @@
 //
 
 import SwiftUI
+import SalmonUI
+import InAppBrowserSUI
 
 struct AcknowledgementsScreen: View {
+    @Environment(\.settingsConfiguration) private var settingsConfiguration: SettingsConfiguration
+
+    @State private var selectedPackageURL: URL?
+
     var body: some View {
-        Text("Hello, World!")
-            .navigationTitle(localizedTitle: "Acknowledgements", comment: "", displayMode: .inline)
+        KScrollableForm {
+            if let acknowledgements = settingsConfiguration.acknowledgements {
+                if !acknowledgements.contributors.isEmpty {
+                    ContributorsSection(contributors: acknowledgements.contributors)
+                        .padding(.bottom, acknowledgements.packages.isEmpty ? .medium : .nada)
+                }
+                if !acknowledgements.packages.isEmpty {
+                    PackagesSection(packages: acknowledgements.packages, onPackagePress: onPackagePress)
+                        .padding(.top, acknowledgements.contributors.isEmpty ? .medium : .nada)
+                }
+            }
+        }
+        .navigationTitle(localizedTitle: "Acknowledgements", comment: "", displayMode: .inline)
+        .accentColor(settingsConfiguration.currentColor)
+        .inAppBrowserSUI(
+            $selectedPackageURL,
+            fallbackURL: URL(staticString: "https://kamaal.io"),
+            color: settingsConfiguration.currentColor)
+    }
+
+    private func onPackagePress(_ package: Acknowledgements.Package) {
+        selectedPackageURL = package.url
     }
 }
 

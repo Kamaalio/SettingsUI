@@ -13,17 +13,20 @@ public struct SettingsConfiguration: Hashable {
     public let feedback: FeedbackConfiguration?
     public let color: ColorsConfiguration?
     public let features: [Feature]
+    public let acknowledgements: Acknowledgements?
     var isDefault = false
 
     public init(
         donations: [StoreKitDonation] = [],
         feedback: FeedbackConfiguration? = nil,
         color: ColorsConfiguration? = nil,
-        features: [Feature] = []) {
+        features: [Feature] = [],
+        acknowledgements: Acknowledgements? = nil) {
             self.donations = donations
             self.feedback = feedback
             self.color = color
             self.features = features
+            self.acknowledgements = acknowledgements
         }
 
     private init(isDefault: Bool) {
@@ -50,7 +53,9 @@ public struct SettingsConfiguration: Hashable {
     }
 
     var acknowledgementsAreConfigured: Bool {
-        true
+        guard let acknowledgements else { return false }
+
+        return !acknowledgements.contributors.isEmpty || !acknowledgements.packages.isEmpty
     }
 
     var currentColor: Color {

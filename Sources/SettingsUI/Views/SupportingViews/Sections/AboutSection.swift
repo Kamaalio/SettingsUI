@@ -26,7 +26,9 @@ struct AboutSection: View {
                             .environment(\.settingsConfiguration, settingsConfiguration)
                     })
                 #if os(macOS)
-                Divider()
+                if versionText != nil {
+                    Divider()
+                }
                 #endif
             }
             if let versionText {

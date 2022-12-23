@@ -28,8 +28,8 @@ struct ContentView: View {
                     }
                 })
                 #endif
-                .accentColor(appColor.color)
         }
+        .accentColor(appColor.color)
     }
 
     private var settingsConfiguration: SettingsConfiguration {
@@ -40,7 +40,8 @@ struct ContentView: View {
                 username: "name",
                 repoName: "Example"),
             color: .init(colors: appColors, currentColor: appColor),
-            features: features)
+            features: features,
+            acknowledgements: acknowledgements)
     }
 
     #if os(macOS)
@@ -56,6 +57,15 @@ struct ContentView: View {
         self.appColor = appColor
     }
 }
+
+let acknowledgements = Acknowledgements(
+    packages: [
+        .init(name: "SettingsUI", url: URL(string: "https://github.com/kamaal111/SettingsUI")!, author: "kamaal111", license: .none),
+        .init(name: "ShrimpExtensions", url: URL(string: "https://github.com/Kamaalio/ShrimpExtensions")!, author: "Kamaalio", license: .none),
+    ],
+    contributors: [
+        .init(name: "Kamaal Farah", contributions: 420)
+    ])
 
 let donations: [StoreKitDonation] = [
     .init(id: "io.kamaal.Example.Carrot", emoji: "🥕", weight: 1),
