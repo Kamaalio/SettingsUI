@@ -21,8 +21,8 @@ struct FeedbackScreen: View {
 
     @ObservedObject private var viewModel: ViewModel
 
-    init(style: FeedbackStyles) {
-        self._viewModel = ObservedObject(wrappedValue: ViewModel(style: style))
+    init(style: FeedbackStyles, description: String = "") {
+        self._viewModel = ObservedObject(wrappedValue: ViewModel(style: style, description: description))
     }
 
     var body: some View {
@@ -65,7 +65,7 @@ struct FeedbackScreen: View {
 
 private final class ViewModel: ObservableObject {
     @Published var title = ""
-    @Published var description = ""
+    @Published var description: String
     @Published private(set) var loading = false
     @Published var showToast = false
     @Published private(set) var toastType: ToastType? {
@@ -76,8 +76,9 @@ private final class ViewModel: ObservableObject {
 
     let style: FeedbackStyles
 
-    init(style: FeedbackStyles) {
+    init(style: FeedbackStyles, description: String) {
         self.style = style
+        self.description = description
     }
 
     enum ToastType: Equatable {

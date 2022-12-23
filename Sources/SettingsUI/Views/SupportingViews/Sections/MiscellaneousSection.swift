@@ -9,13 +9,15 @@ import SwiftUI
 import SalmonUI
 
 struct MiscellaneousSection: View {
+    @Environment(\.settingsConfiguration) private var settingsConfiguration: SettingsConfiguration
+
     var body: some View {
         KSection(header: "Miscellaneous".localized(comment: "")) {
             NavigationLinkImageRow(
                 localizedLabel: "Logs",
                 comment: "",
                 imageSystemName: "newspaper.fill",
-                destination: { LogsScreen() })
+                destination: { LogsScreen().environment(\.settingsConfiguration, settingsConfiguration) })
         }
     }
 }
