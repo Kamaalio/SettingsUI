@@ -10,35 +10,51 @@ import SettingsUI
 
 struct ContentView: View {
     @State private var appColor = appColors[2]
+    @State private var features: [Feature] = [
+        .init(id: UUID(uuidString: "1b833cc3-923c-427a-8288-e3d0ef557cc2")!, label: "Turn on music", isEnabled: false),
+        .init(id: UUID(uuidString: "7c2fdfa5-f5eb-4304-b79a-89aaeccb4a56")!, label: "Fly away", isEnabled: true),
+    ]
 
     var body: some View {
         NavigationStack {
-            SettingsScreen(
-                configuration: SettingsConfiguration(
-                    donations: donations,
-                    feedback: .init(
-                        token: "GITHUB_TOKEN",
-                        username: "name",
-                        repoName: "Example"),
-                    color: .init(colors: appColors, currentColor: appColor)))
-            .onAppColorChange({ appColor in
-                self.appColor = appColor
-            })
-            #if os(macOS)
-            .toolbar(content: {
-                Button(action: randomToolbarButtonAction) {
-                    Label("Random toolbar button", systemImage: "person")
-                        .foregroundColor(.accentColor)
-                }
-            })
-            #endif
-            .accentColor(appColor.color)
+            SettingsScreen(configuration: settingsConfiguration)
+                .onAppColorChange(handleOnAppColorChange)
+                .onFeatureChange(handleOnFeatureChange)
+                #if os(macOS)
+                .toolbar(content: {
+                    Button(action: randomToolbarButtonAction) {
+                        Label("Random toolbar button", systemImage: "person")
+                            .foregroundColor(.accentColor)
+                    }
+                })
+                #endif
+                .accentColor(appColor.color)
         }
+    }
+
+    private var settingsConfiguration: SettingsConfiguration {
+        SettingsConfiguration(
+            donations: donations,
+            feedback: .init(
+                token: "GITHUB_TOKEN",
+                username: "name",
+                repoName: "Example"),
+            color: .init(colors: appColors, currentColor: appColor),
+            features: features)
     }
 
     #if os(macOS)
     private func randomToolbarButtonAction() { }
     #endif
+
+    private func handleOnFeatureChange(_ feature: Feature) {
+        guard let featureIndex = features.firstIndex(where: { $0.id == feature.id }) else { return }
+        features[featureIndex] = feature
+    }
+
+    private func handleOnAppColorChange(_ appColor: AppColor) {
+        self.appColor = appColor
+    }
 }
 
 let donations: [StoreKitDonation] = [

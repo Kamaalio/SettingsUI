@@ -12,22 +12,22 @@ public struct SettingsConfiguration: Hashable {
     public let donations: [StoreKitDonation]
     public let feedback: FeedbackConfiguration?
     public let color: ColorsConfiguration?
-    let isDefault: Bool
+    public let features: [Feature]
+    var isDefault = false
 
     public init(
         donations: [StoreKitDonation] = [],
         feedback: FeedbackConfiguration? = nil,
-        color: ColorsConfiguration? = nil) {
+        color: ColorsConfiguration? = nil,
+        features: [Feature] = []) {
             self.donations = donations
             self.feedback = feedback
             self.color = color
-            self.isDefault = false
+            self.features = features
         }
 
     private init(isDefault: Bool) {
-        self.donations = []
-        self.feedback = nil
-        self.color = nil
+        self.init()
         self.isDefault = isDefault
     }
 
@@ -43,6 +43,10 @@ public struct SettingsConfiguration: Hashable {
         guard let color else { return false }
 
         return !color.colors.isEmpty && color.colors.find(where: { $0 == color.currentColor }) != nil
+    }
+
+    var featuresIsConfigured: Bool {
+        !features.isEmpty
     }
 
     var currentColor: Color {

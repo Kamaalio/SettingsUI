@@ -30,6 +30,9 @@ public struct SettingsScreen: View {
             if configuration.colorsIsConfigured {
                 PersonalizationSection()
             }
+            if configuration.featuresIsConfigured {
+                FeaturesSection()
+            }
         }
         .accentColor(configuration.currentColor)
         .onAppear(perform: handleOnAppear)
@@ -39,14 +42,6 @@ public struct SettingsScreen: View {
         .padding(.all, .medium)
         .ktakeSizeEagerly(alignment: .topLeading)
         #endif
-    }
-
-    public func onAppColorChange(_ perform: @escaping (AppColor) -> Void) -> some View {
-        self
-            .onReceive(NotificationCenter.default.publisher(for: .appColorChanged), perform: { output in
-                guard let color = output.object as? AppColor else { return }
-                perform(color)
-            })
     }
 
     private func handleOnAppear() {
