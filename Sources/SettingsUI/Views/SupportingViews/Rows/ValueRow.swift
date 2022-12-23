@@ -16,6 +16,10 @@ struct ValueRow<Value: View>: View {
         self.value = value()
     }
 
+    init(localizedLabel: String, comment: String, @ViewBuilder value: () -> Value) {
+        self.init(label: localizedLabel.localized(comment: comment), value: value)
+    }
+
     var body: some View {
         RowView(label: {
             AppText(string: label)

@@ -49,6 +49,10 @@ public struct SettingsConfiguration: Hashable {
         !features.isEmpty
     }
 
+    var acknowledgementsAreConfigured: Bool {
+        true
+    }
+
     var currentColor: Color {
         color?.currentColor.color ?? .accentColor
     }

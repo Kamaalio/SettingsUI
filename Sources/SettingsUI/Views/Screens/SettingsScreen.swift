@@ -34,6 +34,9 @@ public struct SettingsScreen: View {
                 FeaturesSection()
             }
             MiscellaneousSection()
+            if versionText != nil || configuration.acknowledgementsAreConfigured {
+                AboutSection(versionText: versionText, buildNumber: buildNumber)
+            }
         }
         .accentColor(configuration.currentColor)
         .onAppear(perform: handleOnAppear)
@@ -43,6 +46,14 @@ public struct SettingsScreen: View {
         .padding(.all, .medium)
         .ktakeSizeEagerly(alignment: .topLeading)
         #endif
+    }
+
+    private var versionText: String? {
+        Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
+    }
+
+    private var buildNumber: String? {
+        Bundle.main.infoDictionary?["CFBundleVersion"] as? String
     }
 
     private func handleOnAppear() {

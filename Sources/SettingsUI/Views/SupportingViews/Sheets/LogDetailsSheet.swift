@@ -10,6 +10,8 @@ import SwiftUI
 import SalmonUI
 
 struct LogDetailsSheet: View {
+    @Environment(\.colorScheme) private var colorScheme: ColorScheme
+
     let log: HoldedLog?
     let close: () -> Void
     let reportBug: (_ log: HoldedLog) -> Void
@@ -38,10 +40,10 @@ struct LogDetailsSheet: View {
                             AppButton(action: { reportBug(log) }) {
                                 HStack {
                                     Image(systemName: "ant")
-                                        .foregroundColor(.primary)
+                                        .foregroundColor(colorScheme == .dark ? .black : .white)
                                     AppText(localizedString: "Report bug", comment: "")
                                         .bold()
-                                        .foregroundColor(.primary)
+                                        .foregroundColor(colorScheme == .dark ? .black : .white)
                                 }
                                 .padding(.vertical, .small)
                                 .ktakeWidthEagerly()
