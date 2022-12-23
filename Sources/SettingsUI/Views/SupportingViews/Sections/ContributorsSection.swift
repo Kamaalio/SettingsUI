@@ -9,6 +9,8 @@ import SwiftUI
 import SalmonUI
 
 struct ContributorsSection: View {
+    @State private var kamaalTapTimes = 0
+
     let contributors: [Acknowledgements.Contributor]
 
     var body: some View {
@@ -17,15 +19,27 @@ struct ContributorsSection: View {
                 AppText(string: contributor.name)
                     .bold()
                     .ktakeWidthEagerly(alignment: .leading)
+                    .onTapGesture(perform: { handleContributorTap(contributor) })
                 #if os(macOS)
                 if contributor != contributors.last {
                     Divider()
                 }
                 #endif
             }
+            if kamaalTapTimes > 0 && (kamaalTapTimes % 3) == 0 {
+                Image("GoodJobKamaal", bundle: .module)
+                    .resizable()
+                    .padding(.horizontal, .medium)
+            }
         }
         .padding(.horizontal, .medium)
         .padding(.top, .medium)
+    }
+
+    private func handleContributorTap(_ contributor: Acknowledgements.Contributor) {
+        if contributor.name == "Kamaal Farah" {
+            withAnimation { kamaalTapTimes += 1 }
+        }
     }
 }
 
