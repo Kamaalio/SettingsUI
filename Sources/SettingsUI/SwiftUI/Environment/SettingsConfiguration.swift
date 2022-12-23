@@ -6,17 +6,50 @@
 //
 
 import SwiftUI
+import ShrimpExtensions
 
 public struct SettingsConfiguration: Hashable {
     public let donations: [StoreKitDonation]
-    public let feedback: Feedback?
+    public let feedback: FeedbackConfiguration?
+    public let color: ColorsConfiguration?
+    let isDefault: Bool
 
-    public init(donations: [StoreKitDonation], feedback: Feedback? = nil) {
-        self.donations = donations
-        self.feedback = feedback
+    public init(
+        donations: [StoreKitDonation] = [],
+        feedback: FeedbackConfiguration? = nil,
+        color: ColorsConfiguration? = nil) {
+            self.donations = donations
+            self.feedback = feedback
+            self.color = color
+            self.isDefault = false
+        }
+
+    private init(isDefault: Bool) {
+        self.donations = []
+        self.feedback = nil
+        self.color = nil
+        self.isDefault = isDefault
     }
 
-    public struct Feedback: Hashable {
+    var donationsIsConfigured: Bool {
+        !donations.isEmpty
+    }
+
+    var feedbackIsConfigured: Bool {
+        feedback != nil
+    }
+
+    var colorsIsConfigured: Bool {
+        guard let color else { return false }
+
+        return !color.colors.isEmpty && color.colors.find(where: { $0 == color.currentColor }) != nil
+    }
+
+    var currentColor: Color {
+        color?.currentColor.color ?? .accentColor
+    }
+
+    public struct FeedbackConfiguration: Hashable {
         public let token: String
         public let username: String
         public let repoName: String
@@ -42,6 +75,18 @@ public struct SettingsConfiguration: Hashable {
             return String(data: additionalData, encoding: .utf8)
         }
     }
+
+    public struct ColorsConfiguration: Hashable {
+        public let colors: [AppColor]
+        public let currentColor: AppColor
+
+        public init(colors: [AppColor], currentColor: AppColor) {
+            self.colors = colors
+            self.currentColor = currentColor
+        }
+    }
+
+    static let `default` = SettingsConfiguration(isDefault: true)
 }
 
 extension EnvironmentValues {
@@ -52,5 +97,5 @@ extension EnvironmentValues {
 }
 
 struct SettingsConfigurationKey: EnvironmentKey {
-    static let defaultValue: SettingsConfiguration = SettingsConfiguration(donations: [], feedback: nil)
+    static let defaultValue: SettingsConfiguration = .default
 }

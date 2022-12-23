@@ -19,6 +19,7 @@ struct AppButton<Content: View>: View {
     var body: some View {
         Button(action: action) {
             content
+                .foregroundColor(.accentColor)
         }
         .buttonStyle(.plain)
     }

@@ -9,13 +9,15 @@ import SwiftUI
 import SalmonUI
 
 struct PersonalizationSection: View {
+    @Environment(\.settingsConfiguration) private var settingsConfiguration: SettingsConfiguration
+
     var body: some View {
         KSection(header: "Personalization".localized(comment: "")) {
             NavigationLinkColorRow(
                 localizedLabel: "App colors",
                 comment: "",
                 color: .accentColor,
-                destination: { AppColorScreen() })
+                destination: { AppColorScreen().environment(\.settingsConfiguration, settingsConfiguration) })
         }
     }
 }

@@ -20,15 +20,18 @@ public struct SettingsScreen: View {
 
     public var body: some View {
         KScrollableForm {
-            if store.hasDonations {
+            if configuration.donationsIsConfigured && store.hasDonations {
                 SupportAuthorSection()
                     .environmentObject(store)
             }
-            if configuration.feedback != nil {
+            if configuration.feedbackIsConfigured {
                 FeedbackSection()
             }
-            PersonalizationSection()
+            if configuration.colorsIsConfigured {
+                PersonalizationSection()
+            }
         }
+        .accentColor(configuration.currentColor)
         .onAppear(perform: handleOnAppear)
         .navigationTitle(localizedTitle: "Settings", comment: "", displayMode: .large)
         .environment(\.settingsConfiguration, configuration)
@@ -36,6 +39,14 @@ public struct SettingsScreen: View {
         .padding(.all, .medium)
         .ktakeSizeEagerly(alignment: .topLeading)
         #endif
+    }
+
+    public func onAppColorChange(_ perform: @escaping (AppColor) -> Void) -> some View {
+        self
+            .onReceive(NotificationCenter.default.publisher(for: .appColorChanged), perform: { output in
+                guard let color = output.object as? AppColor else { return }
+                perform(color)
+            })
     }
 
     private func handleOnAppear() {
