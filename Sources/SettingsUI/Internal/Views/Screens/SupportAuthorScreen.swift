@@ -1,6 +1,6 @@
 //
 //  SupportAuthorScreen.swift
-//  
+//
 //
 //  Created by Kamaal M Farah on 18/12/2022.
 //
@@ -50,14 +50,20 @@ struct SupportAuthorScreen: View {
         .navigationTitle(localizedTitle: "Support Author", comment: "", displayMode: .inline)
         .ktakeSizeEagerly(alignment: .topLeading)
         .onAppear(perform: handleAppear)
-        .confettiCannon(counter: $viewModel.confettiTimesRun, num: viewModel.numberOfConfettis, repetitions: viewModel.confettiRepetitions)
+        .confettiCannon(
+            counter: $viewModel.confettiTimesRun,
+            num: viewModel.numberOfConfettis,
+            repetitions: viewModel.confettiRepetitions
+        )
         .popperUpLite(
             isPresented: $viewModel.showToast,
             style: .bottom(
                 title: "Sorry, something went wrong".localized(comment: ""),
                 type: .error,
-                description: "Failed to make purchase".localized(comment: "")),
-            backgroundColor: colorScheme == .dark ? .black : .white)
+                description: "Failed to make purchase".localized(comment: "")
+            ),
+            backgroundColor: colorScheme == .dark ? .black : .white
+        )
     }
 
     private func handlePurchase(_ donation: CustomProduct) {

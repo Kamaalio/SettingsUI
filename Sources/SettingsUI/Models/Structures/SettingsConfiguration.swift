@@ -1,6 +1,6 @@
 //
 //  SettingsConfiguration.swift
-//  
+//
 //
 //  Created by Kamaal M Farah on 20/12/2022.
 //
@@ -23,14 +23,15 @@ public struct SettingsConfiguration: Hashable {
         color: ColorsConfiguration? = nil,
         features: [Feature] = [],
         acknowledgements: Acknowledgements? = nil,
-        appIcon: AppIconConfiguration? = nil) {
-            self.donations = donations
-            self.feedback = feedback
-            self.color = color
-            self.features = features
-            self.acknowledgements = acknowledgements
-            self.appIcon = appIcon
-        }
+        appIcon: AppIconConfiguration? = nil
+    ) {
+        self.donations = donations
+        self.feedback = feedback
+        self.color = color
+        self.features = features
+        self.acknowledgements = acknowledgements
+        self.appIcon = appIcon
+    }
 
     private init(isDefault: Bool) {
         self.init()
@@ -87,13 +88,14 @@ public struct SettingsConfiguration: Hashable {
             username: String,
             repoName: String,
             additionalLabels: [String] = [],
-            additionalData: Data? = nil) {
-                self.token = token
-                self.username = username
-                self.repoName = repoName
-                self.additionalLabels = additionalLabels
-                self.additionalData = additionalData
-            }
+            additionalData: Data? = nil
+        ) {
+            self.token = token
+            self.username = username
+            self.repoName = repoName
+            self.additionalLabels = additionalLabels
+            self.additionalData = additionalData
+        }
 
         var additionalDataString: String? {
             guard let additionalData else { return nil }

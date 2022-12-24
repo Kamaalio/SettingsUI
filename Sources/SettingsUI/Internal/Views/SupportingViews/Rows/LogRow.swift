@@ -1,6 +1,6 @@
 //
 //  LogRow.swift
-//  
+//
 //
 //  Created by Kamaal M Farah on 23/12/2022.
 //
@@ -29,6 +29,9 @@ struct LogRow: View {
 
 struct LogRow_Previews: PreviewProvider {
     static var previews: some View {
-        LogRow(log: .init(label: "LogRow", type: .info, message: "Preview", timestamp: Date.distantPast), action: { _ in })
+        LogRow(
+            log: .init(label: "LogRow", type: .info, message: "Preview", timestamp: Date.distantPast),
+            action: { _ in }
+        )
     }
 }

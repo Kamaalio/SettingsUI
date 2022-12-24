@@ -1,6 +1,6 @@
 //
 //  InvisibleFill.swift
-//  
+//
 //
 //  Created by Kamaal Farah on 24/12/2022.
 //
@@ -10,12 +10,11 @@ import SalmonUI
 
 extension View {
     func invisibleFill() -> some View {
-        self
-            .ktakeWidthEagerly()
-            #if os(macOS)
+        ktakeWidthEagerly()
+        #if os(macOS)
             .background(Color(nsColor: .separatorColor).opacity(0.01))
-            #else
+        #else
             .background(Color(uiColor: .separator).opacity(0.01))
-            #endif
+        #endif
     }
 }

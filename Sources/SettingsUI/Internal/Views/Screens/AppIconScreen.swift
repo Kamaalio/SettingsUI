@@ -1,6 +1,6 @@
 //
 //  AppIconScreen.swift
-//  
+//
 //
 //  Created by Kamaal M Farah on 24/12/2022.
 //
@@ -20,13 +20,14 @@ struct AppIconScreen: View {
             navigationTitle: "App icon".localized(comment: ""),
             sectionTitle: "Icons".localized(comment: ""),
             items: settingsConfiguration.appIcon?.icons ?? [],
-            onItemPress: changeAppIcon) { item in
-                ValueRow(label: item.title) {
-                    item.image
-                        .size(Constants.rowTileSize)
-                        .cornerRadius(Constants.rowTileCornerRadius)
-                }
+            onItemPress: changeAppIcon
+        ) { item in
+            ValueRow(label: item.title) {
+                item.image
+                    .size(Constants.rowTileSize)
+                    .cornerRadius(Constants.rowTileCornerRadius)
             }
+        }
     }
 
     private func changeAppIcon(_ appIcon: AppIcon) {

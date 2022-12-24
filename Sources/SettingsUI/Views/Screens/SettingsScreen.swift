@@ -1,6 +1,6 @@
 //
 //  SettingsScreen.swift
-//  
+//
 //
 //  Created by Kamaal M Farah on 17/12/2022.
 //
@@ -43,8 +43,8 @@ public struct SettingsScreen: View {
         .navigationTitle(localizedTitle: "Settings", comment: "", displayMode: .large)
         .environment(\.settingsConfiguration, configuration)
         #if os(macOS)
-        .padding(.all, .medium)
-        .ktakeSizeEagerly(alignment: .topLeading)
+            .padding(.all, .medium)
+            .ktakeSizeEagerly(alignment: .topLeading)
         #endif
     }
 

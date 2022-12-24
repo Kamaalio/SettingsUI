@@ -1,6 +1,6 @@
 //
 //  FeedbackScreen.swift
-//  
+//
 //
 //  Created by Kamaal M Farah on 20/12/2022.
 //
@@ -29,10 +29,12 @@ struct FeedbackScreen: View {
         VStack {
             KFloatingTextField(
                 text: $viewModel.title,
-                title: "Title".localized(comment: ""))
+                title: "Title".localized(comment: "")
+            )
             KTextView(
                 text: $viewModel.description,
-                title: "Description".localized(comment: ""))
+                title: "Description".localized(comment: "")
+            )
             AppButton(action: onSendPress) {
                 AppText(localizedString: "Send", comment: "")
                     .font(.headline)
@@ -50,7 +52,8 @@ struct FeedbackScreen: View {
         .popperUpLite(
             isPresented: $viewModel.showToast,
             style: viewModel.lastToastType?.pupUpStyle ?? .bottom(title: "", type: .warning, description: nil),
-            backgroundColor: colorScheme == .dark ? .black : .white)
+            backgroundColor: colorScheme == .dark ? .black : .white
+        )
         .accentColor(settingsConfiguration.currentColor)
     }
 
@@ -71,6 +74,7 @@ private final class ViewModel: ObservableObject {
     @Published private(set) var toastType: ToastType? {
         didSet { Task { await toastTypeDidSet() } }
     }
+
     @Published private(set) var lastToastType: ToastType?
     private var toastTimer: Timer?
 
@@ -123,44 +127,45 @@ private final class ViewModel: ObservableObject {
 
     func submit(
         using feedbackConfiguration: SettingsConfiguration.FeedbackConfiguration?,
-        dismiss: @escaping () -> Void) async {
-            guard let feedbackConfiguration else { return }
+        dismiss: @escaping () -> Void
+    ) async {
+        guard let feedbackConfiguration else { return }
 
-            let gitHubAPI = GitHubAPI(token: feedbackConfiguration.token, username: feedbackConfiguration.username)
-            await withLoading(completion: {
-                let descriptionWithAdditionalFeedback = """
-                # User Feedback
+        let gitHubAPI = GitHubAPI(token: feedbackConfiguration.token, username: feedbackConfiguration.username)
+        await withLoading(completion: {
+            let descriptionWithAdditionalFeedback = """
+            # User Feedback
 
-                \(description)
+            \(description)
 
-                # Additional Data
+            # Additional Data
 
-                \(feedbackConfiguration.additionalDataString ?? "{}")
-                """
-                let issue: GitHubIssue
-                do {
-                    issue = try await gitHubAPI.repos.createIssue(
-                        username: feedbackConfiguration.username,
-                        repoName: feedbackConfiguration.repoName,
-                        title: title,
-                        description: descriptionWithAdditionalFeedback,
-                        assignee: feedbackConfiguration.username,
-                        labels: feedbackConfiguration.additionalLabels.concat(style.labels)
-                    ).get()
-                } catch {
-                    logger.error(label: "failed to send feedback", error: error)
-                    await setToastType(to: .failure)
-                    return
-                }
+            \(feedbackConfiguration.additionalDataString ?? "{}")
+            """
+            let issue: GitHubIssue
+            do {
+                issue = try await gitHubAPI.repos.createIssue(
+                    username: feedbackConfiguration.username,
+                    repoName: feedbackConfiguration.repoName,
+                    title: title,
+                    description: descriptionWithAdditionalFeedback,
+                    assignee: feedbackConfiguration.username,
+                    labels: feedbackConfiguration.additionalLabels.concat(style.labels)
+                ).get()
+            } catch {
+                logger.error(label: "failed to send feedback", error: error)
+                await setToastType(to: .failure)
+                return
+            }
 
-                logger.info("feedback sent; issue='\(issue)'")
-                await setToastType(to: .success)
+            logger.info("feedback sent; issue='\(issue)'")
+            await setToastType(to: .success)
 
-                DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                    dismiss()
-                }
-            })
-        }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                dismiss()
+            }
+        })
+    }
 
     @MainActor
     private func setToastType(to type: ToastType?) {

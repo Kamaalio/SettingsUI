@@ -1,6 +1,6 @@
 //
 //  MiscellaneousSection.swift
-//  
+//
 //
 //  Created by Kamaal M Farah on 23/12/2022.
 //
@@ -17,7 +17,8 @@ struct MiscellaneousSection: View {
                 localizedLabel: "Logs",
                 comment: "",
                 imageSystemName: "newspaper.fill",
-                destination: { LogsScreen().environment(\.settingsConfiguration, settingsConfiguration) })
+                destination: { LogsScreen().environment(\.settingsConfiguration, settingsConfiguration) }
+            )
         }
     }
 }

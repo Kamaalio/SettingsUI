@@ -1,6 +1,6 @@
 //
 //  PersonalizationSection.swift
-//  
+//
 //
 //  Created by Kamaal M Farah on 22/12/2022.
 //
@@ -19,7 +19,8 @@ struct PersonalizationSection: View {
                     localizedLabel: "App colors",
                     comment: "",
                     color: .accentColor,
-                    destination: { AppColorScreen().environment(\.settingsConfiguration, settingsConfiguration) })
+                    destination: { AppColorScreen().environment(\.settingsConfiguration, settingsConfiguration) }
+                )
                 #if os(macOS)
                 if settingsConfiguration.appIconIsConfigured {
                     Divider()

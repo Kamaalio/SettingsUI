@@ -1,6 +1,6 @@
 //
 //  FeaturesSection.swift
-//  
+//
 //
 //  Created by Kamaal M Farah on 23/12/2022.
 //

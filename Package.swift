@@ -40,6 +40,7 @@ let package = Package(
         ),
         .testTarget(
             name: "SettingsUITests",
-            dependencies: ["SettingsUI"]),
+            dependencies: ["SettingsUI"]
+        ),
     ]
 )

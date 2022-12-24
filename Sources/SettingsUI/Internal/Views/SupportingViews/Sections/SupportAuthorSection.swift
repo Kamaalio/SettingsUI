@@ -1,6 +1,6 @@
 //
 //  SupportAuthorSection.swift
-//  
+//
 //
 //  Created by Kamaal M Farah on 18/12/2022.
 //
@@ -17,7 +17,8 @@ struct SupportAuthorSection: View {
                 localizedLabel: "Buy me coffee",
                 comment: "",
                 imageSystemName: "cup.and.saucer.fill",
-                destination: { SupportAuthorScreen().environmentObject(store) })
+                destination: { SupportAuthorScreen().environmentObject(store) }
+            )
         }
     }
 }

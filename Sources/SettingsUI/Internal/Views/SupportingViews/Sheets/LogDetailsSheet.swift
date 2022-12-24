@@ -1,6 +1,6 @@
 //
 //  LogDetailsSheet.swift
-//  
+//
 //
 //  Created by Kamaal M Farah on 23/12/2022.
 //
@@ -54,7 +54,8 @@ struct LogDetailsSheet: View {
                     }
                 }
                 .padding(.vertical, .medium)
-            })
+            }
+        )
         .frame(minWidth: 300, minHeight: 200, alignment: .topLeading)
     }
 }
@@ -64,6 +65,7 @@ struct LogDetailsSheet_Previews: PreviewProvider {
         LogDetailsSheet(
             log: .init(label: "LogDetails", type: .error, message: "Message", timestamp: .distantFuture),
             close: { },
-            reportBug: { _ in })
+            reportBug: { _ in }
+        )
     }
 }

@@ -1,6 +1,6 @@
 //
 //  LogsScreen.swift
-//  
+//
 //
 //  Created by Kamaal M Farah on 23/12/2022.
 //
@@ -31,7 +31,8 @@ struct LogsScreen: View {
                     FeedbackScreen(style: .bug, description: bugDescription)
                         .environment(\.settingsConfiguration, settingsConfiguration)
                 },
-                label: { Text("") })
+                label: { Text("") }
+            )
             .buttonStyle(.plain)
             KScrollableForm {
                 KSection {

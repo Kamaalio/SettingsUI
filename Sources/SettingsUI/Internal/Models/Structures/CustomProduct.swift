@@ -1,6 +1,6 @@
 //
 //  CustomProduct.swift
-//  
+//
 //
 //  Created by Kamaal M Farah on 17/12/2022.
 //
@@ -23,5 +23,6 @@ struct CustomProduct: Hashable, Identifiable {
         displayName: "Carrot",
         displayPrice: "$420.69",
         price: 420.69,
-        description: "Carrots are good for the eyes")
+        description: "Carrots are good for the eyes"
+    )
 }

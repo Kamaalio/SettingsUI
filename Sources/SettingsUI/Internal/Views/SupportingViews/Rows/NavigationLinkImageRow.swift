@@ -1,6 +1,6 @@
 //
 //  NavigationLinkImageRow.swift
-//  
+//
 //
 //  Created by Kamaal M Farah on 18/12/2022.
 //
@@ -24,12 +24,14 @@ struct NavigationLinkImageRow<Destination: View>: View {
         localizedLabel: String,
         comment: String,
         imageSystemName: String,
-        @ViewBuilder destination: () -> Destination) {
-            self.init(
-                label: localizedLabel.localized(comment: comment),
-                imageSystemName: imageSystemName,
-                destination: destination)
-        }
+        @ViewBuilder destination: () -> Destination
+    ) {
+        self.init(
+            label: localizedLabel.localized(comment: comment),
+            imageSystemName: imageSystemName,
+            destination: destination
+        )
+    }
 
     init(label: String, imageName: String, @ViewBuilder destination: () -> Destination) {
         self.label = label
@@ -42,12 +44,14 @@ struct NavigationLinkImageRow<Destination: View>: View {
         localizedLabel: String,
         comment: String,
         imageName: String,
-        @ViewBuilder destination: () -> Destination) {
-            self.init(
-                label: localizedLabel.localized(comment: comment),
-                imageName: imageName,
-                destination: destination)
-        }
+        @ViewBuilder destination: () -> Destination
+    ) {
+        self.init(
+            label: localizedLabel.localized(comment: comment),
+            imageName: imageName,
+            destination: destination
+        )
+    }
 
     private enum ImageType {
         case systemName

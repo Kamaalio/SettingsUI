@@ -1,6 +1,6 @@
 //
 //  AboutSection.swift
-//  
+//
 //
 //  Created by Kamaal M Farah on 23/12/2022.
 //
@@ -24,7 +24,8 @@ struct AboutSection: View {
                     destination: {
                         AcknowledgementsScreen()
                             .environment(\.settingsConfiguration, settingsConfiguration)
-                    })
+                    }
+                )
                 #if os(macOS)
                 if versionText != nil {
                     Divider()

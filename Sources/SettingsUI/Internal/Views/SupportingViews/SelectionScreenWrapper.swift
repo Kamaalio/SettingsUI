@@ -1,6 +1,6 @@
 //
 //  SelectionScreenWrapper.swift
-//  
+//
 //
 //  Created by Kamaal Farah on 24/12/2022.
 //
@@ -22,13 +22,14 @@ struct SelectionScreenWrapper<Row: View, Item: Hashable & Identifiable>: View {
         sectionTitle: String,
         items: [Item],
         onItemPress: @escaping (Item) -> Void,
-        @ViewBuilder row: @escaping (Item) -> Row) {
-            self.navigationTitle = navigationTitle
-            self.sectionTitle = sectionTitle
-            self.items = items
-            self.onItemPress = onItemPress
-            self.row = row
-        }
+        @ViewBuilder row: @escaping (Item) -> Row
+    ) {
+        self.navigationTitle = navigationTitle
+        self.sectionTitle = sectionTitle
+        self.items = items
+        self.onItemPress = onItemPress
+        self.row = row
+    }
 
     var body: some View {
         KScrollableForm {
@@ -61,10 +62,11 @@ struct SelectionScreenWrapper_Previews: PreviewProvider {
             sectionTitle: "Section",
             items: [
                 AppColor(id: UUID(uuidString: "15a20957-1d37-49bb-b463-b5a3cd5efd79")!, name: "Red", color: .red),
-                AppColor(id: UUID(uuidString: "c7fffbb9-28de-4b93-a7a8-d065ea57ad0b")!, name: "Green", color: .green)
+                AppColor(id: UUID(uuidString: "c7fffbb9-28de-4b93-a7a8-d065ea57ad0b")!, name: "Green", color: .green),
             ],
-            onItemPress: { _ in }) { item in
-                Text(item.name)
-            }
+            onItemPress: { _ in }
+        ) { item in
+            Text(item.name)
+        }
     }
 }

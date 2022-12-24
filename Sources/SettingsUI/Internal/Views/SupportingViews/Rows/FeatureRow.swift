@@ -1,6 +1,6 @@
 //
 //  FeatureRow.swift
-//  
+//
 //
 //  Created by Kamaal M Farah on 23/12/2022.
 //
@@ -41,7 +41,9 @@ struct FeatureRow_Previews: PreviewProvider {
             feature: .init(
                 id: UUID(uuidString: "d103d65d-585b-450e-8fcf-5fcece1d1250")!,
                 label: "Fly away",
-                isEnabled: false),
-            onChange: { _ in })
+                isEnabled: false
+            ),
+            onChange: { _ in }
+        )
     }
 }

@@ -1,6 +1,6 @@
 //
 //  Changes.swift
-//  
+//
 //
 //  Created by Kamaal M Farah on 23/12/2022.
 //
@@ -20,11 +20,11 @@ extension View {
         onChangeBase(for: .featureChanged, perform)
     }
 
-    private func onChangeBase<Target>(for notification: Notification.Name, _ perform: @escaping (Target) -> Void) -> some View {
-        self
-            .onReceive(NotificationCenter.default.publisher(for: notification), perform: { output in
-                guard let object = output.object as? Target else { return }
-                perform(object)
-            })
+    private func onChangeBase<Target>(for notification: Notification.Name,
+                                      _ perform: @escaping (Target) -> Void) -> some View {
+        onReceive(NotificationCenter.default.publisher(for: notification), perform: { output in
+            guard let object = output.object as? Target else { return }
+            perform(object)
+        })
     }
 }

@@ -27,14 +27,14 @@ struct ContentView: View {
                 .onAppColorChange(handleOnAppColorChange)
                 .onFeatureChange(handleOnFeatureChange)
                 .onAppIconChange(handleOnAppIconChange)
-                #if os(macOS)
+            #if os(macOS)
                 .toolbar(content: {
                     Button(action: randomToolbarButtonAction) {
                         Label("Random toolbar button", systemImage: "person")
                             .foregroundColor(.accentColor)
                     }
                 })
-                #endif
+            #endif
         }
         .accentColor(appColor.color)
     }
@@ -45,11 +45,13 @@ struct ContentView: View {
             feedback: .init(
                 token: "GITHUB_TOKEN",
                 username: "name",
-                repoName: "Example"),
+                repoName: "Example"
+            ),
             color: .init(colors: appColors, currentColor: appColor),
             features: features,
             acknowledgements: acknowledgements,
-            appIcon: .init(icons: appIcons, currentIcon: appIcon))
+            appIcon: .init(icons: appIcons, currentIcon: appIcon)
+        )
     }
 
     #if os(macOS)
@@ -72,17 +74,32 @@ struct ContentView: View {
 
 let appIcons: [AppIcon] = [
     .init(id: UUID(uuidString: "5a1b8fe3-a26d-46a8-b8ee-fa88d05de549")!, imageName: "AppIcon", title: "Default"),
-    .init(id: UUID(uuidString: "789b4334-867d-4fa1-a0e8-a92ad757f89a")!, imageName: "AlternateAppIcon", title: "Alternate"),
+    .init(
+        id: UUID(uuidString: "789b4334-867d-4fa1-a0e8-a92ad757f89a")!,
+        imageName: "AlternateAppIcon",
+        title: "Alternate"
+    ),
 ]
 
 let acknowledgements = Acknowledgements(
     packages: [
-        .init(name: "SettingsUI", url: URL(string: "https://github.com/kamaal111/SettingsUI")!, author: "kamaal111", license: .none),
-        .init(name: "ShrimpExtensions", url: URL(string: "https://github.com/Kamaalio/ShrimpExtensions")!, author: "Kamaalio", license: .none),
+        .init(
+            name: "SettingsUI",
+            url: URL(string: "https://github.com/kamaal111/SettingsUI")!,
+            author: "kamaal111",
+            license: .none
+        ),
+        .init(
+            name: "ShrimpExtensions",
+            url: URL(string: "https://github.com/Kamaalio/ShrimpExtensions")!,
+            author: "Kamaalio",
+            license: .none
+        ),
     ],
     contributors: [
-        .init(name: "Kamaal Farah", contributions: 420)
-    ])
+        .init(name: "Kamaal Farah", contributions: 420),
+    ]
+)
 
 let donations: [StoreKitDonation] = [
     .init(id: "io.kamaal.Example.Carrot", emoji: "🥕", weight: 1),

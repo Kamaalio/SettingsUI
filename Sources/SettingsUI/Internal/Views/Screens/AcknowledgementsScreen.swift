@@ -1,6 +1,6 @@
 //
 //  AcknowledgementsScreen.swift
-//  
+//
 //
 //  Created by Kamaal M Farah on 23/12/2022.
 //
@@ -32,7 +32,8 @@ struct AcknowledgementsScreen: View {
         .inAppBrowserSUI(
             $selectedPackageURL,
             fallbackURL: URL(staticString: "https://kamaal.io"),
-            color: settingsConfiguration.currentColor)
+            color: settingsConfiguration.currentColor
+        )
     }
 
     private func onPackagePress(_ package: Acknowledgements.Package) {

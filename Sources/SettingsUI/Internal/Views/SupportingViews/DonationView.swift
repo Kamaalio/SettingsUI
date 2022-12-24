@@ -1,6 +1,6 @@
 //
 //  DonationView.swift
-//  
+//
 //
 //  Created by Kamaal M Farah on 18/12/2022.
 //
@@ -22,7 +22,8 @@ struct DonationView: View {
                 AppText(
                     localizedString: "Buy me a %@",
                     comment: "%@ as in the item to buy",
-                    with: [donation.displayName])
+                    with: [donation.displayName]
+                )
                 .textCase(.uppercase)
                 .font(.headline)
                 .foregroundColor(.primary)
@@ -47,6 +48,7 @@ struct DonationView: View {
 struct DonationView_Previews: PreviewProvider {
     static var previews: some View {
         DonationView(
-            donation: .carrot)
+            donation: .carrot
+        )
     }
 }

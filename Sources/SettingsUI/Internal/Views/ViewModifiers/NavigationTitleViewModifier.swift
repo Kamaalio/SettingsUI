@@ -1,6 +1,6 @@
 //
 //  NavigationTitleViewModifier.swift
-//  
+//
 //
 //  Created by Kamaal M Farah on 18/12/2022.
 //
@@ -9,15 +9,14 @@ import SwiftUI
 
 extension View {
     func navigationTitle(title: String, displayMode: DisplayMode) -> some View {
-        self
-            .modifier(NavigationTitleViewModifier(title: title, displayMode: displayMode))
+        modifier(NavigationTitleViewModifier(title: title, displayMode: displayMode))
     }
 
     func navigationTitle(localizedTitle: String, comment: String, displayMode: DisplayMode) -> some View {
-        self
-            .navigationTitle(
-                title: NSLocalizedString(localizedTitle, bundle: .module, comment: comment),
-                displayMode: displayMode)
+        navigationTitle(
+            title: NSLocalizedString(localizedTitle, bundle: .module, comment: comment),
+            displayMode: displayMode
+        )
     }
 }
 

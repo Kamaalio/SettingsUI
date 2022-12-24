@@ -1,6 +1,6 @@
 //
 //  AppSizes.swift
-//  
+//
 //
 //  Created by Kamaal M Farah on 18/12/2022.
 //
@@ -9,13 +9,11 @@ import SwiftUI
 
 extension View {
     func padding(_ edges: Edge.Set = .all, _ length: AppSizes) -> some View {
-        self
-            .padding(edges, length.rawValue)
+        padding(edges, length.rawValue)
     }
 
     func cornerRadius(_ length: AppSizes) -> some View {
-        self
-            .cornerRadius(length.rawValue)
+        cornerRadius(length.rawValue)
     }
 }
 

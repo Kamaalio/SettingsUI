@@ -1,6 +1,6 @@
 //
 //  Store.swift
-//  
+//
 //
 //  Created by Kamaal M Farah on 17/12/2022.
 //
@@ -27,7 +27,7 @@ final class Store: NSObject, ObservableObject {
     private var purchasingTask: Task<Void, Never>?
     private var products: [Product] = []
 
-    private override init() { }
+    override private init() { }
 
     init(donations: [StoreKitDonation]) {
         super.init()

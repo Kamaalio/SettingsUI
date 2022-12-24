@@ -1,6 +1,6 @@
 //
 //  AppColorScreen.swift
-//  
+//
 //
 //  Created by Kamaal M Farah on 22/12/2022.
 //
@@ -20,9 +20,10 @@ struct AppColorScreen: View {
             navigationTitle: "App colors".localized(comment: ""),
             sectionTitle: "Colors".localized(comment: ""),
             items: settingsConfiguration.color?.colors ?? [],
-            onItemPress: changeAppColor) { appColor in
-                ColorTextRow(label: appColor.name, color: appColor.color)
-            }
+            onItemPress: changeAppColor
+        ) { appColor in
+            ColorTextRow(label: appColor.name, color: appColor.color)
+        }
     }
 
     private func changeAppColor(_ appColor: AppColor) {

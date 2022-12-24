@@ -1,6 +1,6 @@
 //
 //  FeedbackSection.swift
-//  
+//
 //
 //  Created by Kamaal M Farah on 20/12/2022.
 //
@@ -21,7 +21,8 @@ struct FeedbackSection: View {
                         destination: {
                             FeedbackScreen(style: style)
                                 .environment(\.settingsConfiguration, settingsConfiguration)
-                        })
+                        }
+                    )
                     #if os(macOS)
                     if style != FeedbackStyles.allCases.last! {
                         Divider()

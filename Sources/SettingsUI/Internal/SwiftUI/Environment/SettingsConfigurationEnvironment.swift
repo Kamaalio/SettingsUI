@@ -1,6 +1,6 @@
 //
 //  SettingsConfigurationEnvironment.swift
-//  
+//
 //
 //  Created by Kamaal Farah on 24/12/2022.
 //
