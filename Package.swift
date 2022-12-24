@@ -11,9 +11,7 @@ let package = Package(
         .macOS(.v12),
     ],
     products: [
-        .library(
-            name: "SettingsUI",
-            targets: ["SettingsUI"]),
+        .library(name: "SettingsUI", targets: ["SettingsUI"]),
     ],
     dependencies: [
         .package(url: "https://github.com/Kamaalio/Logster.git", "1.1.0" ..< "2.0.0"),
@@ -37,7 +35,7 @@ let package = Package(
                 "InAppBrowserSUI",
             ],
             resources: [
-                .process("Resources"),
+                .process("Internal/Resources"),
             ]
         ),
         .testTarget(

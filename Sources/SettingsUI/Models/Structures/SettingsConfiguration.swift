@@ -124,14 +124,3 @@ public struct SettingsConfiguration: Hashable {
 
     static let `default` = SettingsConfiguration(isDefault: true)
 }
-
-extension EnvironmentValues {
-    var settingsConfiguration: SettingsConfiguration {
-        get { self[SettingsConfigurationKey.self] }
-        set { self[SettingsConfigurationKey.self] = newValue }
-    }
-}
-
-struct SettingsConfigurationKey: EnvironmentKey {
-    static let defaultValue: SettingsConfiguration = .default
-}
