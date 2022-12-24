@@ -11,6 +11,32 @@ import SalmonUI
 
 private let logger = Logster(from: AppColorScreen.self)
 
+struct SelectionScreen<Row: View>: View {
+    @Environment(\.settingsConfiguration) private var settingsConfiguration: SettingsConfiguration
+    @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
+
+    let navigationTitle: String
+    let sectionTitle: String
+    let row: Row
+
+    init(navigationTitle: String, sectionTitle: String, @ViewBuilder row: @escaping () -> Row) {
+        self.navigationTitle = navigationTitle
+        self.sectionTitle = sectionTitle
+        self.row = row()
+    }
+
+    var body: some View {
+        KScrollableForm {
+            KSection(header: sectionTitle) {
+                row
+            }
+        }
+        .ktakeSizeEagerly(alignment: .topLeading)
+        .navigationTitle(title: navigationTitle, displayMode: .inline)
+        .accentColor(settingsConfiguration.currentColor)
+    }
+}
+
 struct AppColorScreen: View {
     @Environment(\.settingsConfiguration) private var settingsConfiguration: SettingsConfiguration
     @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>

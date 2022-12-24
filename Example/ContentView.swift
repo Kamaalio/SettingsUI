@@ -14,6 +14,7 @@ struct ContentView: View {
         .init(id: UUID(uuidString: "1b833cc3-923c-427a-8288-e3d0ef557cc2")!, label: "Turn on music", isEnabled: false),
         .init(id: UUID(uuidString: "7c2fdfa5-f5eb-4304-b79a-89aaeccb4a56")!, label: "Fly away", isEnabled: true),
     ]
+    @State private var appIcon = appIcons[0]
 
     var body: some View {
         NavigationStack {
@@ -42,7 +43,7 @@ struct ContentView: View {
             color: .init(colors: appColors, currentColor: appColor),
             features: features,
             acknowledgements: acknowledgements,
-            appIcons: appIcons)
+            appIcon: .init(icons: appIcons, currentIcon: appIcon))
     }
 
     #if os(macOS)
@@ -60,8 +61,8 @@ struct ContentView: View {
 }
 
 let appIcons: [AppIcon] = [
-    .init(id: UUID(uuidString: "5a1b8fe3-a26d-46a8-b8ee-fa88d05de549")!, name: "AppIcon"),
-    .init(id: UUID(uuidString: "789b4334-867d-4fa1-a0e8-a92ad757f89a")!, name: "AlternateAppIcon"),
+    .init(id: UUID(uuidString: "5a1b8fe3-a26d-46a8-b8ee-fa88d05de549")!, imageName: "AppIcon", title: "Default"),
+    .init(id: UUID(uuidString: "789b4334-867d-4fa1-a0e8-a92ad757f89a")!, imageName: "AlternateAppIcon", title: "Alternate"),
 ]
 
 let acknowledgements = Acknowledgements(

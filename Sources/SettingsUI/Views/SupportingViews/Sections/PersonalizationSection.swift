@@ -7,6 +7,7 @@
 
 import SwiftUI
 import SalmonUI
+import ShrimpExtensions
 
 struct PersonalizationSection: View {
     @Environment(\.settingsConfiguration) private var settingsConfiguration: SettingsConfiguration
@@ -19,6 +20,22 @@ struct PersonalizationSection: View {
                     comment: "",
                     color: .accentColor,
                     destination: { AppColorScreen().environment(\.settingsConfiguration, settingsConfiguration) })
+                #if os(macOS)
+                if settingsConfiguration.appIconIsConfigured {
+                    Divider()
+                }
+                #endif
+            }
+            if settingsConfiguration.appIconIsConfigured {
+                NavigationLinkRow(destination: {
+                    AppIconScreen().environment(\.settingsConfiguration, settingsConfiguration)
+                }) {
+                    ValueRow(localizedLabel: "App icon", comment: "") {
+                        settingsConfiguration.appIcon!.currentIcon.image
+                            .size(Constants.rowTileSize)
+                            .cornerRadius(Constants.rowTileCornerRadius)
+                    }
+                }
             }
         }
     }

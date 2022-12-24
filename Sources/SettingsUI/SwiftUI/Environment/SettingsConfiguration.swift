@@ -14,7 +14,7 @@ public struct SettingsConfiguration: Hashable {
     public let color: ColorsConfiguration?
     public let features: [Feature]
     public let acknowledgements: Acknowledgements?
-    public let appIcons: [AppIcon]
+    public let appIcon: AppIconConfiguration?
     var isDefault = false
 
     public init(
@@ -23,13 +23,13 @@ public struct SettingsConfiguration: Hashable {
         color: ColorsConfiguration? = nil,
         features: [Feature] = [],
         acknowledgements: Acknowledgements? = nil,
-        appIcons: [AppIcon] = []) {
+        appIcon: AppIconConfiguration? = nil) {
             self.donations = donations
             self.feedback = feedback
             self.color = color
             self.features = features
             self.acknowledgements = acknowledgements
-            self.appIcons = appIcons
+            self.appIcon = appIcon
         }
 
     private init(isDefault: Bool) {
@@ -51,8 +51,14 @@ public struct SettingsConfiguration: Hashable {
         return !color.colors.isEmpty && color.colors.find(where: { $0 == color.currentColor }) != nil
     }
 
+    var appIconIsConfigured: Bool {
+        guard let appIcon else { return false }
+
+        return !appIcon.icons.isEmpty && appIcon.icons.find(where: { $0 == appIcon.currentIcon }) != nil
+    }
+
     var personalizationIsConfigured: Bool {
-        colorsIsConfigured || !appIcons.isEmpty
+        colorsIsConfigured || appIconIsConfigured
     }
 
     var featuresIsConfigured: Bool {
@@ -103,6 +109,16 @@ public struct SettingsConfiguration: Hashable {
         public init(colors: [AppColor], currentColor: AppColor) {
             self.colors = colors
             self.currentColor = currentColor
+        }
+    }
+
+    public struct AppIconConfiguration: Hashable {
+        public let icons: [AppIcon]
+        public let currentIcon: AppIcon
+
+        public init(icons: [AppIcon], currentIcon: AppIcon) {
+            self.icons = icons
+            self.currentIcon = currentIcon
         }
     }
 

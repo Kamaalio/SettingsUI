@@ -12,8 +12,6 @@ struct ColorTextRow: View {
     let label: String
     let color: Color
 
-    private let size: CGSize = .squared(28)
-
     init(label: String, color: Color) {
         self.label = label
         self.color = color
@@ -22,8 +20,8 @@ struct ColorTextRow: View {
     var body: some View {
         ValueRow(label: label) {
             color
-                .frame(width: size.width, height: size.height)
-                .cornerRadius(.small)
+                .frame(width: Constants.rowTileSize.width, height: Constants.rowTileSize.height)
+                .cornerRadius(Constants.rowTileCornerRadius)
         }
     }
 }
