@@ -41,7 +41,8 @@ struct ContentView: View {
                 repoName: "Example"),
             color: .init(colors: appColors, currentColor: appColor),
             features: features,
-            acknowledgements: acknowledgements)
+            acknowledgements: acknowledgements,
+            appIcons: appIcons)
     }
 
     #if os(macOS)
@@ -57,6 +58,11 @@ struct ContentView: View {
         self.appColor = appColor
     }
 }
+
+let appIcons: [AppIcon] = [
+    .init(id: UUID(uuidString: "5a1b8fe3-a26d-46a8-b8ee-fa88d05de549")!, name: "AppIcon"),
+    .init(id: UUID(uuidString: "789b4334-867d-4fa1-a0e8-a92ad757f89a")!, name: "AlternateAppIcon"),
+]
 
 let acknowledgements = Acknowledgements(
     packages: [

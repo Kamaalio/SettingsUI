@@ -27,7 +27,7 @@ public struct SettingsScreen: View {
             if configuration.feedbackIsConfigured {
                 FeedbackSection()
             }
-            if configuration.colorsIsConfigured {
+            if configuration.personalizationIsConfigured {
                 PersonalizationSection()
             }
             if configuration.featuresIsConfigured {

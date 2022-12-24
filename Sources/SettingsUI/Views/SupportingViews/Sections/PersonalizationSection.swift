@@ -13,11 +13,13 @@ struct PersonalizationSection: View {
 
     var body: some View {
         KSection(header: "Personalization".localized(comment: "")) {
-            NavigationLinkColorRow(
-                localizedLabel: "App colors",
-                comment: "",
-                color: .accentColor,
-                destination: { AppColorScreen().environment(\.settingsConfiguration, settingsConfiguration) })
+            if settingsConfiguration.colorsIsConfigured {
+                NavigationLinkColorRow(
+                    localizedLabel: "App colors",
+                    comment: "",
+                    color: .accentColor,
+                    destination: { AppColorScreen().environment(\.settingsConfiguration, settingsConfiguration) })
+            }
         }
     }
 }
