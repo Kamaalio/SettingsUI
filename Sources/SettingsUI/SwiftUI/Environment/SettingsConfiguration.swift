@@ -54,7 +54,7 @@ public struct SettingsConfiguration: Hashable {
     var appIconIsConfigured: Bool {
         guard let appIcon else { return false }
 
-        return !appIcon.icons.isEmpty && appIcon.icons.find(where: { $0 == appIcon.currentIcon }) != nil
+        return appIcon.icons.count > 1 && appIcon.icons.find(where: { $0 == appIcon.currentIcon }) != nil
     }
 
     var personalizationIsConfigured: Bool {
@@ -75,7 +75,7 @@ public struct SettingsConfiguration: Hashable {
         color?.currentColor.color ?? .accentColor
     }
 
-    public struct FeedbackConfiguration: Hashable {
+    public struct FeedbackConfiguration: Hashable, Codable {
         public let token: String
         public let username: String
         public let repoName: String
@@ -112,7 +112,7 @@ public struct SettingsConfiguration: Hashable {
         }
     }
 
-    public struct AppIconConfiguration: Hashable {
+    public struct AppIconConfiguration: Hashable, Codable {
         public let icons: [AppIcon]
         public let currentIcon: AppIcon
 

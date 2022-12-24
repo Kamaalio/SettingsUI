@@ -21,11 +21,7 @@ struct AppButton<Content: View>: View {
         Button(action: action) {
             content
                 .foregroundColor(.accentColor)
-                #if os(macOS)
-                // Hack: need the following 2 lines to be fully clickable on macOS
-                .ktakeWidthEagerly()
-                .background(Color(nsColor: .separatorColor).opacity(0.01))
-                #endif
+                .invisibleFill()
         }
         .buttonStyle(.plain)
     }

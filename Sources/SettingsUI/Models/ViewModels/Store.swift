@@ -136,7 +136,7 @@ final class Store: NSObject, ObservableObject {
 
         return CustomProduct(
             id: product.id,
-            emoji: donationItem.emoji,
+            emoji: donationItem.emojiCharacter,
             weight: donationItem.weight,
             displayName: displayName,
             displayPrice: product.displayPrice,

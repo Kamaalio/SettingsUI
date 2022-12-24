@@ -20,7 +20,7 @@ struct AboutSection: View {
                 NavigationLinkImageRow(
                     localizedLabel: "Acknowledgements",
                     comment: "",
-                    imageSystemName: "medal.fill",
+                    imageSystemName: acknowledgementsImageSystemName,
                     destination: {
                         AcknowledgementsScreen()
                             .environment(\.settingsConfiguration, settingsConfiguration)
@@ -42,6 +42,13 @@ struct AboutSection: View {
                 }
             }
         }
+    }
+
+    private var acknowledgementsImageSystemName: String {
+        if #available(macOS 13.0, iOS 16.0, *) {
+            return "medal.fill"
+        }
+        return "burst.fill"
     }
 }
 

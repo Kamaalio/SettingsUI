@@ -12,6 +12,10 @@ extension View {
         onChangeBase(for: .appColorChanged, perform)
     }
 
+    public func onAppIconChange(_ perform: @escaping (AppIcon) -> Void) -> some View {
+        onChangeBase(for: .appIconChanged, perform)
+    }
+
     public func onFeatureChange(_ perform: @escaping (Feature) -> Void) -> some View {
         onChangeBase(for: .featureChanged, perform)
     }

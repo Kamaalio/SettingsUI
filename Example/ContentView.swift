@@ -17,10 +17,16 @@ struct ContentView: View {
     @State private var appIcon = appIcons[0]
 
     var body: some View {
-        NavigationStack {
+        NavigationView {
+            #if os(macOS)
+            List {
+                Text("Sidbar")
+            }
+            #endif
             SettingsScreen(configuration: settingsConfiguration)
                 .onAppColorChange(handleOnAppColorChange)
                 .onFeatureChange(handleOnFeatureChange)
+                .onAppIconChange(handleOnAppIconChange)
                 #if os(macOS)
                 .toolbar(content: {
                     Button(action: randomToolbarButtonAction) {
@@ -49,6 +55,10 @@ struct ContentView: View {
     #if os(macOS)
     private func randomToolbarButtonAction() { }
     #endif
+
+    private func handleOnAppIconChange(_ appIcon: AppIcon) {
+        self.appIcon = appIcon
+    }
 
     private func handleOnFeatureChange(_ feature: Feature) {
         guard let featureIndex = features.firstIndex(where: { $0.id == feature.id }) else { return }
