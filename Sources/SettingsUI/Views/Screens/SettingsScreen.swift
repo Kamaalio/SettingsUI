@@ -19,33 +19,42 @@ public struct SettingsScreen: View {
     }
 
     public var body: some View {
-        KScrollableForm {
-            if configuration.donationsIsConfigured && store.hasDonations {
-                SupportAuthorSection()
-                    .environmentObject(store)
+        NavigationStackView {
+            KScrollableForm {
+                if configuration.donationsIsConfigured && store.hasDonations {
+                    SupportAuthorSection()
+                        .padding(.horizontal, .medium)
+                }
+                if configuration.feedbackIsConfigured {
+                    FeedbackSection()
+                        .padding(.horizontal, .medium)
+                }
+                if configuration.personalizationIsConfigured {
+                    PersonalizationSection()
+                        .padding(.horizontal, .medium)
+                }
+                if configuration.featuresIsConfigured {
+                    FeaturesSection()
+                        .padding(.horizontal, .medium)
+                }
+                MiscellaneousSection()
+                    .padding(.horizontal, .medium)
+                if versionText != nil || configuration.acknowledgementsAreConfigured {
+                    AboutSection(versionText: versionText, buildNumber: buildNumber)
+                        .padding(.horizontal, .medium)
+                }
             }
-            if configuration.feedbackIsConfigured {
-                FeedbackSection()
-            }
-            if configuration.personalizationIsConfigured {
-                PersonalizationSection()
-            }
-            if configuration.featuresIsConfigured {
-                FeaturesSection()
-            }
-            MiscellaneousSection()
-            if versionText != nil || configuration.acknowledgementsAreConfigured {
-                AboutSection(versionText: versionText, buildNumber: buildNumber)
-            }
+            .navigationTitle(localizedTitle: "Settings", comment: "", displayMode: .large)
         }
-        .accentColor(configuration.currentColor)
+        .environmentObject(store)
+        .accentColor(configuration.colorsIsConfigured ? configuration.currentColor : .accentColor)
         .onAppear(perform: handleOnAppear)
-        .navigationTitle(localizedTitle: "Settings", comment: "", displayMode: .large)
         .environment(\.settingsConfiguration, configuration)
         #if os(macOS)
-            .padding(.all, .medium)
+            .padding(.vertical, .medium)
             .ktakeSizeEagerly(alignment: .topLeading)
         #endif
+            .frame(minWidth: 250)
     }
 
     private var versionText: String? {

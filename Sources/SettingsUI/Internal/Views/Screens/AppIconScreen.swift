@@ -15,6 +15,8 @@ struct AppIconScreen: View {
     @Environment(\.settingsConfiguration) private var settingsConfiguration: SettingsConfiguration
     @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
 
+    @EnvironmentObject private var navigator: Navigator
+
     var body: some View {
         SelectionScreenWrapper(
             navigationTitle: "App icon".localized(comment: ""),
@@ -33,7 +35,11 @@ struct AppIconScreen: View {
     private func changeAppIcon(_ appIcon: AppIcon) {
         NotificationCenter.default.post(name: .appIconChanged, object: appIcon)
         logger.info("app icon changed to \(appIcon.title)")
+        #if os(macOS)
+        navigator.goBack()
+        #else
         presentationMode.wrappedValue.dismiss()
+        #endif
     }
 }
 

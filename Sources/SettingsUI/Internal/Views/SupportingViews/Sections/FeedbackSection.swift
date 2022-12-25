@@ -9,19 +9,14 @@ import SwiftUI
 import SalmonUI
 
 struct FeedbackSection: View {
-    @Environment(\.settingsConfiguration) private var settingsConfiguration: SettingsConfiguration
-
     var body: some View {
         KSection(header: "Feedback".localized(comment: "")) {
-            ForEach(FeedbackStyles.allCases) { style in
+            ForEach(FeedbackStyles.allCases, id: \.title) { style in
                 VStack {
                     NavigationLinkImageRow(
                         label: style.title,
                         imageSystemName: style.imageSystemName,
-                        destination: {
-                            FeedbackScreen(style: style)
-                                .environment(\.settingsConfiguration, settingsConfiguration)
-                        }
+                        destination: .feedback(style: style, description: "")
                     )
                     #if os(macOS)
                     if style != FeedbackStyles.allCases.last! {

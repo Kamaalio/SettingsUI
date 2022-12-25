@@ -9,15 +9,13 @@ import SwiftUI
 import SalmonUI
 
 struct SupportAuthorSection: View {
-    @EnvironmentObject private var store: Store
-
     var body: some View {
         KSection(header: "Support Author".localized(comment: "")) {
             NavigationLinkImageRow(
                 localizedLabel: "Buy me coffee",
                 comment: "",
                 imageSystemName: "cup.and.saucer.fill",
-                destination: { SupportAuthorScreen().environmentObject(store) }
+                destination: .supportAuthor
             )
         }
     }

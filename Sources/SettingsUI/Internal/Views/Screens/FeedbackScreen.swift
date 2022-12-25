@@ -19,6 +19,8 @@ struct FeedbackScreen: View {
     @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
     @Environment(\.colorScheme) private var colorScheme: ColorScheme
 
+    @EnvironmentObject private var navigator: Navigator
+
     @ObservedObject private var viewModel: ViewModel
 
     init(style: FeedbackStyles, description: String = "") {
@@ -60,7 +62,11 @@ struct FeedbackScreen: View {
     private func onSendPress() {
         Task {
             await viewModel.submit(using: settingsConfiguration.feedback, dismiss: {
+                #if os(macOS)
+                navigator.goBack()
+                #else
                 presentationMode.wrappedValue.dismiss()
+                #endif
             })
         }
     }

@@ -7,48 +7,34 @@
 
 import SwiftUI
 
-struct NavigationLinkImageRow<Destination: View>: View {
+struct NavigationLinkImageRow: View {
     let label: String
     let imageName: String
-    let destination: Destination
+    let destination: ScreenSelection
     private let imageType: ImageType
 
-    init(label: String, imageSystemName: String, @ViewBuilder destination: () -> Destination) {
+    init(label: String, imageName: String, destination: ScreenSelection) {
         self.label = label
-        self.imageName = imageSystemName
-        self.imageType = .systemName
-        self.destination = destination()
+        self.imageName = imageName
+        self.destination = destination
+        self.imageType = .name
     }
 
-    init(
-        localizedLabel: String,
-        comment: String,
-        imageSystemName: String,
-        @ViewBuilder destination: () -> Destination
-    ) {
+    init(localizedLabel: String, comment: String, imageName: String, destination: ScreenSelection) {
+        self.init(label: localizedLabel.localized(comment: comment), imageName: imageName, destination: destination)
+    }
+
+    init(label: String, imageSystemName: String, destination: ScreenSelection) {
+        self.label = label
+        self.imageName = imageSystemName
+        self.destination = destination
+        self.imageType = .systemName
+    }
+
+    init(localizedLabel: String, comment: String, imageSystemName: String, destination: ScreenSelection) {
         self.init(
             label: localizedLabel.localized(comment: comment),
             imageSystemName: imageSystemName,
-            destination: destination
-        )
-    }
-
-    init(label: String, imageName: String, @ViewBuilder destination: () -> Destination) {
-        self.label = label
-        self.imageName = imageName
-        self.imageType = .name
-        self.destination = destination()
-    }
-
-    init(
-        localizedLabel: String,
-        comment: String,
-        imageName: String,
-        @ViewBuilder destination: () -> Destination
-    ) {
-        self.init(
-            label: localizedLabel.localized(comment: comment),
-            imageName: imageName,
             destination: destination
         )
     }
@@ -59,7 +45,7 @@ struct NavigationLinkImageRow<Destination: View>: View {
     }
 
     var body: some View {
-        NavigationLinkRow(destination: { destination }) {
+        NavigationLinkRow(destination: destination) {
             switch imageType {
             case .systemName:
                 ImageTextRow(label: label, imageSystemName: imageName)
@@ -72,6 +58,6 @@ struct NavigationLinkImageRow<Destination: View>: View {
 
 struct NavigationLinkImageRow_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationLinkImageRow(label: "Label", imageSystemName: "person", destination: { Text("Destination") })
+        NavigationLinkImageRow(label: "Label", imageSystemName: "person", destination: .acknowledgements)
     }
 }

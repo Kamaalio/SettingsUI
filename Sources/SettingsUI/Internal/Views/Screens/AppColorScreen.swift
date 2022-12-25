@@ -15,6 +15,8 @@ struct AppColorScreen: View {
     @Environment(\.settingsConfiguration) private var settingsConfiguration: SettingsConfiguration
     @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
 
+    @EnvironmentObject private var navigator: Navigator
+
     var body: some View {
         SelectionScreenWrapper(
             navigationTitle: "App colors".localized(comment: ""),
@@ -29,7 +31,11 @@ struct AppColorScreen: View {
     private func changeAppColor(_ appColor: AppColor) {
         NotificationCenter.default.post(name: .appColorChanged, object: appColor)
         logger.info("app color changed to \(appColor)")
+        #if os(macOS)
+        navigator.goBack()
+        #else
         presentationMode.wrappedValue.dismiss()
+        #endif
     }
 }
 

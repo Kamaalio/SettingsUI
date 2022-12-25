@@ -21,10 +21,7 @@ struct AboutSection: View {
                     localizedLabel: "Acknowledgements",
                     comment: "",
                     imageSystemName: acknowledgementsImageSystemName,
-                    destination: {
-                        AcknowledgementsScreen()
-                            .environment(\.settingsConfiguration, settingsConfiguration)
-                    }
+                    destination: .acknowledgements
                 )
                 #if os(macOS)
                 if versionText != nil {

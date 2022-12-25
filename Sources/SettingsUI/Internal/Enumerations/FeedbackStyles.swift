@@ -7,14 +7,10 @@
 
 import Foundation
 
-enum FeedbackStyles: CaseIterable, Identifiable {
+enum FeedbackStyles: CaseIterable, Codable {
     case feature
     case bug
     case other
-
-    var id: String {
-        title
-    }
 
     var title: String {
         switch self {

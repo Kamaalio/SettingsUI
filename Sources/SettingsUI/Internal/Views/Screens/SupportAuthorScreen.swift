@@ -12,6 +12,7 @@ import PopperUp
 import ConfettiSwiftUI
 
 struct SupportAuthorScreen: View {
+    @EnvironmentObject private var navigator: Navigator
     @EnvironmentObject private var store: Store
 
     @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
@@ -85,7 +86,11 @@ struct SupportAuthorScreen: View {
             let result = await store.requestProducts()
             switch result {
             case .failure:
+                #if os(macOS)
+                navigator.goBack()
+                #else
                 presentationMode.wrappedValue.dismiss()
+                #endif
             case .success:
                 break
             }

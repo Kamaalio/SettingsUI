@@ -6,29 +6,46 @@
 //
 
 import SwiftUI
-import SalmonUI
 
-struct NavigationLinkRow<Value: View, Destination: View>: View {
-    let destination: Destination
-    let value: Value
+struct NavigationLinkRow<Value: View>: View {
+    @EnvironmentObject private var navigator: Navigator
+    @EnvironmentObject private var store: Store
 
-    init(@ViewBuilder destination: () -> Destination, @ViewBuilder value: () -> Value) {
-        self.destination = destination()
-        self.value = value()
+    @Environment(\.settingsConfiguration) private var settingsConfiguration: SettingsConfiguration
+
+    let destination: ScreenSelection
+    let value: () -> Value
+
+    init(destination: ScreenSelection, @ViewBuilder value: @escaping () -> Value) {
+        self.value = value
+        self.destination = destination
     }
 
     var body: some View {
-        NavigationLink(destination: { destination }) {
-            value
-                .foregroundColor(.accentColor)
-                .invisibleFill()
+        #if os(macOS)
+        AppButton(action: { navigator.navigate(to: destination) }) {
+            valueView
         }
-        .buttonStyle(.plain)
+        #else
+        NavigationLink(destination: {
+            MainView(screen: destination)
+                .environment(\.settingsConfiguration, settingsConfiguration)
+                .environmentObject(store)
+        }) {
+            valueView
+        }
+        #endif
+    }
+
+    private var valueView: some View {
+        value()
+            .foregroundColor(.accentColor)
+            .invisibleFill()
     }
 }
 
 struct NavigationLinkRow_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationLinkRow(destination: { Text("Destination") }, value: { Text("Value") })
+        NavigationLinkRow(destination: .logs, value: { Text("Value") })
     }
 }

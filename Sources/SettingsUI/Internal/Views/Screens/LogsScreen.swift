@@ -24,6 +24,7 @@ struct LogsScreen: View {
 
     var body: some View {
         ZStack {
+            #warning("Check if this still works")
             NavigationLink(
                 tag: Screens.feedback,
                 selection: $screenToShow,
@@ -31,7 +32,7 @@ struct LogsScreen: View {
                     FeedbackScreen(style: .bug, description: bugDescription)
                         .environment(\.settingsConfiguration, settingsConfiguration)
                 },
-                label: { Text("") }
+                label: { EmptyView() }
             )
             .buttonStyle(.plain)
             KScrollableForm {

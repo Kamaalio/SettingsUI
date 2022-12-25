@@ -19,7 +19,7 @@ struct PersonalizationSection: View {
                     localizedLabel: "App colors",
                     comment: "",
                     color: .accentColor,
-                    destination: { AppColorScreen().environment(\.settingsConfiguration, settingsConfiguration) }
+                    destination: .appColor
                 )
                 #if os(macOS)
                 if settingsConfiguration.appIconIsConfigured {
@@ -28,10 +28,9 @@ struct PersonalizationSection: View {
                 #endif
             }
             if settingsConfiguration.appIconIsConfigured {
-                NavigationLinkRow(destination: {
-                    AppIconScreen().environment(\.settingsConfiguration, settingsConfiguration)
-                }) {
+                NavigationLinkRow(destination: .appIcon) {
                     ValueRow(localizedLabel: "App icon", comment: "") {
+                        #warning("Check if I can use Image row instead")
                         settingsConfiguration.appIcon!.currentIcon.image
                             .size(Constants.rowTileSize)
                             .cornerRadius(Constants.rowTileCornerRadius)

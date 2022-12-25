@@ -7,23 +7,23 @@
 
 import SwiftUI
 
-struct NavigationLinkColorRow<Destination: View>: View {
+struct NavigationLinkColorRow: View {
     let label: String
     let color: Color
-    let destination: Destination
+    let destination: ScreenSelection
 
-    init(label: String, color: Color, @ViewBuilder destination: () -> Destination) {
+    init(label: String, color: Color, destination: ScreenSelection) {
         self.label = label
         self.color = color
-        self.destination = destination()
+        self.destination = destination
     }
 
-    init(localizedLabel: String, comment: String, color: Color, @ViewBuilder destination: () -> Destination) {
-        self.init(label: localizedLabel.localized(comment: comment), color: color, destination: destination)
+    init(localizedLabel: String, comment _: String, color: Color, destination: ScreenSelection) {
+        self.init(label: localizedLabel.localized(comment: ""), color: color, destination: destination)
     }
 
     var body: some View {
-        NavigationLinkRow(destination: { destination }) {
+        NavigationLinkRow(destination: destination) {
             ColorTextRow(label: label, color: color)
         }
     }
@@ -31,6 +31,6 @@ struct NavigationLinkColorRow<Destination: View>: View {
 
 struct NavigationLinkColorRow_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationLinkColorRow(label: "Label", color: .accentColor, destination: { Text("Destination") })
+        NavigationLinkColorRow(label: "Label", color: .accentColor, destination: .appIcon)
     }
 }
