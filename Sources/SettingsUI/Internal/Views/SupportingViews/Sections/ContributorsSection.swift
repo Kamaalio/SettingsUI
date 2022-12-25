@@ -26,7 +26,7 @@ struct ContributorsSection: View {
                 }
                 #endif
             }
-            if kamaalTapTimes > 0 && (kamaalTapTimes % 3) == 0 {
+            if kamaalTapTimes > 0, (kamaalTapTimes % 3) == 0 {
                 Image("GoodJobKamaal", bundle: .module)
                     .resizable()
                     .padding(.horizontal, .medium)

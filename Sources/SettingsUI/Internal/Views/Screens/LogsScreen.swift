@@ -10,6 +10,8 @@ import SwiftUI
 import SalmonUI
 
 struct LogsScreen: View {
+    @EnvironmentObject private var navigator: Navigator
+
     @Environment(\.settingsConfiguration) private var settingsConfiguration: SettingsConfiguration
 
     @State private var logs: [HoldedLog] = []
@@ -24,7 +26,7 @@ struct LogsScreen: View {
 
     var body: some View {
         ZStack {
-            #warning("Check if this still works")
+            #if !os(macOS)
             NavigationLink(
                 tag: Screens.feedback,
                 selection: $screenToShow,
@@ -34,7 +36,7 @@ struct LogsScreen: View {
                 },
                 label: { EmptyView() }
             )
-            .buttonStyle(.plain)
+            #endif
             KScrollableForm {
                 KSection {
                     ForEach(logs, id: \.self) { item in
@@ -79,7 +81,11 @@ struct LogsScreen: View {
         """
 
         bugDescription = predefinedDescription
+        #if os(macOS)
+        navigator.navigate(to: .feedback(style: .bug, description: predefinedDescription))
+        #else
         screenToShow = .feedback
+        #endif
     }
 
     private func onShowSelectedLogSheetChange(_ newValue: Bool) {

@@ -31,7 +31,8 @@ struct PersonalizationSection: View {
                     localizedLabel: "App icon",
                     comment: "",
                     imageName: settingsConfiguration.appIcon!.currentIcon.imageName,
-                    destination: .appIcon)
+                    destination: .appIcon
+                )
             }
         }
     }

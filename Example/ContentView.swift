@@ -18,11 +18,11 @@ struct ContentView: View {
 
     var body: some View {
         NavigationView {
-            #if os(macOS)
-            List {
-                Text("Sidbar")
+            if shouldHaveASidebar {
+                List {
+                    Text("Sidbar")
+                }
             }
-            #endif
             SettingsScreen(configuration: settingsConfiguration)
                 .onAppColorChange(handleOnAppColorChange)
                 .onFeatureChange(handleOnFeatureChange)
@@ -37,6 +37,17 @@ struct ContentView: View {
             #endif
         }
         .accentColor(appColor.color)
+    }
+
+    private var shouldHaveASidebar: Bool {
+        #if os(macOS)
+        return true
+        #else
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            return true
+        }
+        return false
+        #endif
     }
 
     private var settingsConfiguration: SettingsConfiguration {
