@@ -7,7 +7,6 @@
 
 import SwiftUI
 import SalmonUI
-import ShrimpExtensions
 
 struct PersonalizationSection: View {
     @Environment(\.settingsConfiguration) private var settingsConfiguration: SettingsConfiguration
@@ -28,14 +27,11 @@ struct PersonalizationSection: View {
                 #endif
             }
             if settingsConfiguration.appIconIsConfigured {
-                NavigationLinkRow(destination: .appIcon) {
-                    ValueRow(localizedLabel: "App icon", comment: "") {
-                        #warning("Check if I can use Image row instead")
-                        settingsConfiguration.appIcon!.currentIcon.image
-                            .size(Constants.rowTileSize)
-                            .cornerRadius(Constants.rowTileCornerRadius)
-                    }
-                }
+                NavigationLinkImageRow(
+                    localizedLabel: "App icon",
+                    comment: "",
+                    imageName: settingsConfiguration.appIcon!.currentIcon.imageName,
+                    destination: .appIcon)
             }
         }
     }

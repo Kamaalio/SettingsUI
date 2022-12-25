@@ -41,11 +41,27 @@ struct ImageTextRow: View {
             case .systemName:
                 Image(systemName: imageName)
             case .name:
-                Image(imageName)
-                    .size(Constants.rowTileSize)
-                    .cornerRadius(Constants.rowTileCornerRadius)
+                if let imageFromAsset {
+                    imageFromAsset
+                        .size(Constants.rowTileSize)
+                        .cornerRadius(Constants.rowTileCornerRadius)
+                }
             }
         }
+    }
+
+    private var imageFromAsset: Image? {
+        #if canImport(UIKit)
+        if let image = UIImage(named: imageName) {
+            return Image(uiImage: image)
+        }
+        #else
+        if let image = NSImage(named: imageName) {
+            Image(nsImage: image)
+        }
+        #endif
+
+        return nil
     }
 }
 

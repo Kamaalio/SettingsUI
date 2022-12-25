@@ -24,11 +24,7 @@ struct AppIconScreen: View {
             items: settingsConfiguration.appIcon?.icons ?? [],
             onItemPress: changeAppIcon
         ) { item in
-            ValueRow(label: item.title) {
-                item.image
-                    .size(Constants.rowTileSize)
-                    .cornerRadius(Constants.rowTileCornerRadius)
-            }
+            ImageTextRow(label: item.title, imageName: item.imageName)
         }
     }
 

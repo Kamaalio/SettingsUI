@@ -17,25 +17,4 @@ public struct AppIcon: Hashable, Identifiable, Codable {
         self.imageName = imageName
         self.title = title
     }
-
-    var image: Image {
-        guard let image = safeImage else {
-            assertionFailure("Failed to find image")
-            return Image(systemName: "photo")
-        }
-
-        return image
-    }
-
-    private var safeImage: Image? {
-        #if canImport(UIKit)
-        guard let uiImage = UIImage(named: imageName, in: .main, with: .none) else { return nil }
-
-        return Image(uiImage: uiImage)
-        #else
-        guard let nsImage = NSImage(named: imageName) else { return nil }
-
-        return Image(nsImage: nsImage)
-        #endif
-    }
 }
