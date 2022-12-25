@@ -21,19 +21,21 @@ final class Store: NSObject, ObservableObject {
     /// Purchasing state. View should indicate user is currently purchasing.
     @Published private(set) var isPurchasing = false
 
-    private var storeKitDonations: [StoreKitDonation.ID: StoreKitDonation] = [:]
+    private var storeKitDonations: [StoreKitDonation.ID: StoreKitDonation]!
     private var purchasedIdentifiersToTimesPurchased: [String: Int] = [:]
     private var updateListenerTask: Task<Void, Never>?
     private var purchasingTask: Task<Void, Never>?
     private var products: [Product] = []
+    private var productFetcher: ProductFetcher!
 
     override private init() { }
 
-    init(donations: [StoreKitDonation]) {
+    init(donations: [StoreKitDonation], productFetcher: ProductFetcher = StoreKitProductFetcher()) {
         super.init()
 
         self.storeKitDonations = donations.mappedByID
         self.updateListenerTask = listenForTransactions()
+        self.productFetcher = productFetcher
     }
 
     deinit {
@@ -85,25 +87,33 @@ final class Store: NSObject, ObservableObject {
         logger.info("requesting products")
 
         return await withLoading(completion: {
-            let storeKitDonationsIDs = storeKitDonations
-                .map(\.value.id)
-            let products: [Product]
-            do {
-                products = try await Product.products(for: storeKitDonationsIDs)
-            } catch {
-                logger.error(label: "failed to get products", error: error)
-                return .failure(.getProducts)
+            let productsResult = await getProducts()
+            let donations: [CustomProduct]
+            switch productsResult {
+            case let .failure(failure):
+                return .failure(failure)
+            case let .success(success):
+                donations = success
             }
 
-            let donations = products
-                .compactMap(productToCustomProduct)
-                .sorted(by: \.weight, using: .orderedAscending)
-
-            self.products = products
-            await self.setDonations(donations)
-
+            await setDonations(donations)
+            self.products = donations.compactMap(\.product)
             return .success(())
         })
+    }
+
+    private func getProducts() async -> Result<[CustomProduct], Errors> {
+        let products: [CustomProduct]
+        do {
+            products = try await productFetcher.getProducts(by: storeKitDonations)
+        } catch {
+            logger.error(label: "failed to get products", error: error)
+            return .failure(.getProducts)
+        }
+
+        let donations = products
+            .sorted(by: \.weight, using: .orderedAscending)
+        return .success(donations)
     }
 
     @MainActor
@@ -134,15 +144,7 @@ final class Store: NSObject, ObservableObject {
               product.type == .consumable,
               let donationItem = storeKitDonations[product.id] else { return nil }
 
-        return CustomProduct(
-            id: product.id,
-            emoji: donationItem.emojiCharacter,
-            weight: donationItem.weight,
-            displayName: displayName,
-            displayPrice: product.displayPrice,
-            price: product.price,
-            description: product.description
-        )
+        return CustomProduct(product: product, emoji: donationItem.emojiCharacter, weight: donationItem.weight)
     }
 
     /// Update transactions regularly on a detached task for whenever the user makes a transaction outside of the app
@@ -231,5 +233,26 @@ final class Store: NSObject, ObservableObject {
         }
 
         purchasedIdentifiersToTimesPurchased[identifier] = value + increment
+    }
+}
+
+protocol ProductFetcher {
+    func getProducts(by storeKitDonations: [StoreKitDonation.ID: StoreKitDonation]) async throws -> [CustomProduct]
+}
+
+struct StoreKitProductFetcher: ProductFetcher {
+    func getProducts(by storeKitDonations: [StoreKitDonation.ID: StoreKitDonation]) async throws -> [CustomProduct] {
+        let productIDs = storeKitDonations
+            .map(\.value.id)
+        let products = try await Product.products(for: productIDs)
+        return products.compactMap { product -> CustomProduct? in
+            let displayName = product.displayName
+
+            guard !displayName.isEmpty,
+                  product.type == .consumable,
+                  let donationItem = storeKitDonations[product.id] else { return nil }
+
+            return CustomProduct(product: product, emoji: donationItem.emojiCharacter, weight: donationItem.weight)
+        }
     }
 }
