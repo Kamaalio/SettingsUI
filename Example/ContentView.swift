@@ -36,6 +36,7 @@ struct ContentView: View {
                 })
             #endif
         }
+        .navigationStyle(shouldHaveASidebar ? .columns : .stack)
         .accentColor(appColor.color)
     }
 
@@ -128,6 +129,30 @@ let appColors: [AppColor] = [
     .init(id: UUID(uuidString: "0125142b-4a50-4f7f-b02c-a4963a6e4633")!, name: "Red", color: .red),
     .init(id: UUID(uuidString: "eb82e779-a7ba-4c75-a6e2-53d35332b940")!, name: "Blue", color: .blue),
 ]
+
+extension NavigationView {
+    func navigationStyle(_ style: Style) -> some View {
+        #if os(macOS)
+        self
+        #else
+        ZStack {
+            switch style {
+            case .columns:
+                self
+                    .navigationViewStyle(.columns)
+            case .stack:
+                self
+                    .navigationViewStyle(.stack)
+            }
+        }
+        #endif
+    }
+
+    enum Style {
+        case columns
+        case stack
+    }
+}
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
