@@ -28,9 +28,9 @@ struct NavigationStackView<Root: View>: View {
                     .transition(.move(edge: .trailing))
                     .toolbar {
                         ToolbarItem(placement: .navigation) {
-                            AppButton(action: { navigator.goBack() }) {
+                            Button(action: { navigator.goBack() }) {
                                 Image(systemName: "chevron.left")
-                                    .size(.init(width: 13, height: 15))
+                                    .foregroundColor(.accentColor)
                             }
                         }
                     }
