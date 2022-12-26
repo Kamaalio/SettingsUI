@@ -9,8 +9,13 @@ import XCTest
 @testable import SettingsUI
 
 final class StoreTests: XCTestCase {
+    var store: Store!
+
+    override func setUpWithError() throws {
+        store = Store(donations: donations, productFetcher: MockProductFetcher())
+    }
+
     func testGetAllProducts() async throws {
-        let store = Store(donations: donations, productFetcher: MockProductFetcher())
         try await store.requestProducts().get()
         XCTAssertEqual(store.donations.count, donations.count)
     }

@@ -19,6 +19,15 @@
       }
     },
     {
+      "identity" : "inappbrowsersui",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Kamaalio/InAppBrowserSUI.git",
+      "state" : {
+        "revision" : "191c767f7226313002ea78903dab5f11e2e05d59",
+        "version" : "2.1.0"
+      }
+    },
+    {
       "identity" : "logster",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/Kamaalio/Logster.git",
@@ -32,8 +41,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/Kamaalio/PopperUp.git",
       "state" : {
-        "revision" : "38e093e44197234bf9a6cf77afe8dd36fd861e7c",
-        "version" : "0.4.0"
+        "revision" : "a4efef612871eeb95cb166f4bd2bb47c2fe47f22",
+        "version" : "0.4.1"
       }
     },
     {

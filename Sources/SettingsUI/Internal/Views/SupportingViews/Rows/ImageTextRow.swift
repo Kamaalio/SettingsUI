@@ -57,7 +57,7 @@ struct ImageTextRow: View {
         }
         #else
         if let image = NSImage(named: imageName) {
-            Image(nsImage: image)
+            return Image(nsImage: image)
         }
         #endif
 
