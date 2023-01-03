@@ -9,8 +9,6 @@ import SwiftUI
 import SalmonUI
 
 struct PreferenceRow: View {
-    @Environment(\.settingsConfiguration) private var settingsConfiguration: SettingsConfiguration
-
     @State private var selectedOption: Preference.Option
 
     let preference: Preference
