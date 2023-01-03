@@ -15,6 +15,7 @@ struct ContentView: View {
         .init(id: UUID(uuidString: "7c2fdfa5-f5eb-4304-b79a-89aaeccb4a56")!, label: "Fly away", isEnabled: true),
     ]
     @State private var appIcon = appIcons[0]
+    @State private var selectedLanguageOption = languageOptions[0]
 
     var body: some View {
         NavigationView {
@@ -27,6 +28,7 @@ struct ContentView: View {
                 .onAppColorChange(handleOnAppColorChange)
                 .onFeatureChange(handleOnFeatureChange)
                 .onAppIconChange(handleOnAppIconChange)
+                .onSettingsPreferenceChange(handlePreferenceChange)
             #if os(macOS)
                 .toolbar(content: {
                     Button(action: randomToolbarButtonAction) {
@@ -62,13 +64,29 @@ struct ContentView: View {
             color: .init(colors: appColors, currentColor: appColor),
             features: features,
             acknowledgements: acknowledgements,
-            appIcon: .init(icons: appIcons, currentIcon: appIcon)
+            appIcon: .init(icons: appIcons, currentIcon: appIcon),
+            preferences: preferences
         )
+    }
+
+    var preferences: [Preference] {
+        [
+            .init(
+                id: UUID(uuidString: "66971130-a466-44cc-83f6-4759b51e7789")!,
+                label: "Language",
+                selectedOption: selectedLanguageOption,
+                options: languageOptions
+            ),
+        ]
     }
 
     #if os(macOS)
     private func randomToolbarButtonAction() { }
     #endif
+
+    private func handlePreferenceChange(_ preference: Preference) {
+        selectedLanguageOption = preference.selectedOption
+    }
 
     private func handleOnAppIconChange(_ appIcon: AppIcon) {
         self.appIcon = appIcon
@@ -83,6 +101,11 @@ struct ContentView: View {
         self.appColor = appColor
     }
 }
+
+let languageOptions: [Preference.Option] = [
+    .init(id: UUID(uuidString: "067fb9e5-af94-4425-965b-ebd70e7f9e56")!, label: "English"),
+    .init(id: UUID(uuidString: "37c735d7-0804-469b-9219-ece30b0cbe4a")!, label: "Dutch"),
+]
 
 let appIcons: [AppIcon] = [
     .init(id: UUID(uuidString: "5a1b8fe3-a26d-46a8-b8ee-fa88d05de549")!, imageName: "AppIcon", title: "Default"),
