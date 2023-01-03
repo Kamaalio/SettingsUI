@@ -20,6 +20,10 @@ extension View {
         onChangeBase(for: .featureChanged, perform)
     }
 
+    public func onSettingsPreferenceChange(_ perform: @escaping (Preference) -> Void) -> some View {
+        onChangeBase(for: .preferenceChanged, perform)
+    }
+
     private func onChangeBase<Target>(for notification: Notification.Name,
                                       _ perform: @escaping (Target) -> Void) -> some View {
         onReceive(NotificationCenter.default.publisher(for: notification), perform: { output in

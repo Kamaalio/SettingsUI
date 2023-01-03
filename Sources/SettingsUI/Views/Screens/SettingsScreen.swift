@@ -33,6 +33,10 @@ public struct SettingsScreen: View {
                     PersonalizationSection()
                         .padding(.horizontal, .medium)
                 }
+                if configuration.preferencesIsConfigured {
+                    PreferencesSection()
+                        .padding(.horizontal, .medium)
+                }
                 if configuration.featuresIsConfigured {
                     FeaturesSection()
                         .padding(.horizontal, .medium)
