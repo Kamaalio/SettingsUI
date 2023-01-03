@@ -1,12 +1,20 @@
 
 name: CI
 on: push
+concurrency:
+    group: ${{ github.ref }}
+    cancel-in-progress: true
 jobs:
   buildAndTest:
     name: test
-    runs-on: macos-latest
+    runs-on: macos-12
     steps:
       - uses: actions/checkout@v1
+      - name: Setup - Xcode
+        env:
+          XCODE_APP_NAME: Xcode_14.2.app
+        run: |
+          sh Scripts/select_xcode_version.sh
       - name: Test
         run: |
           sh Scripts/run_tests.sh
