@@ -41,8 +41,10 @@ public struct SettingsScreen: View {
                     FeaturesSection()
                         .padding(.horizontal, .medium)
                 }
-                MiscellaneousSection()
-                    .padding(.horizontal, .medium)
+                if configuration.showLogs {
+                    MiscellaneousSection()
+                        .padding(.horizontal, .medium)
+                }
                 if versionText != nil || configuration.acknowledgementsAreConfigured {
                     AboutSection(versionText: versionText, buildNumber: buildNumber)
                         .padding(.horizontal, .medium)

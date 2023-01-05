@@ -65,7 +65,8 @@ struct ContentView: View {
             features: features,
             acknowledgements: acknowledgements,
             appIcon: .init(icons: appIcons, currentIcon: appIcon),
-            preferences: preferences
+            preferences: preferences,
+            showLogs: true
         )
     }
 
