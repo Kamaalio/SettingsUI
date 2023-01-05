@@ -16,6 +16,7 @@ public struct SettingsConfiguration: Hashable {
     public let acknowledgements: Acknowledgements?
     public let appIcon: AppIconConfiguration?
     public let preferences: [Preference]
+    public let showLogs: Bool
     var isDefault = false
 
     public init(
@@ -25,7 +26,8 @@ public struct SettingsConfiguration: Hashable {
         features: [Feature] = [],
         acknowledgements: Acknowledgements? = nil,
         appIcon: AppIconConfiguration? = nil,
-        preferences: [Preference] = []
+        preferences: [Preference] = [],
+        showLogs: Bool = true
     ) {
         self.donations = donations
         self.feedback = feedback
@@ -34,6 +36,7 @@ public struct SettingsConfiguration: Hashable {
         self.acknowledgements = acknowledgements
         self.appIcon = appIcon
         self.preferences = preferences.filter(\.optionsContainSelectedOption)
+        self.showLogs = showLogs
     }
 
     private init(isDefault: Bool) {
