@@ -55,7 +55,7 @@ public struct SettingsConfiguration: Hashable {
     var colorsIsConfigured: Bool {
         guard let color else { return false }
 
-        return !color.colors.isEmpty && color.colors.find(where: { $0 == color.currentColor }) != nil
+        return color.colors.count > 1 && color.colors.find(where: { $0 == color.currentColor }) != nil
     }
 
     var appIconIsConfigured: Bool {

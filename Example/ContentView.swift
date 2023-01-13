@@ -9,7 +9,7 @@ import SwiftUI
 import SettingsUI
 
 struct ContentView: View {
-    @State private var appColor = appColors[2]
+    @State private var appColor = appColors[6]
     @State private var features: [Feature] = [
         .init(id: UUID(uuidString: "1b833cc3-923c-427a-8288-e3d0ef557cc2")!, label: "Turn on music", isEnabled: false),
         .init(id: UUID(uuidString: "7c2fdfa5-f5eb-4304-b79a-89aaeccb4a56")!, label: "Fly away", isEnabled: true),
