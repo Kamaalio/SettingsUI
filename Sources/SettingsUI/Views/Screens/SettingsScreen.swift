@@ -53,7 +53,7 @@ public struct SettingsScreen: View {
             .navigationTitle(localizedTitle: "Settings", comment: "", displayMode: .large)
         }
         .environmentObject(store)
-        .accentColor(configuration.colorsIsConfigured ? configuration.currentColor : .accentColor)
+        .accentColor(configuration.currentColor)
         .onAppear(perform: handleOnAppear)
         .environment(\.settingsConfiguration, configuration)
         #if os(macOS)
