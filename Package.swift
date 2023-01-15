@@ -19,7 +19,7 @@ let package = Package(
         .package(url: "https://github.com/Kamaalio/ShrimpExtensions.git", "3.0.0" ..< "4.0.0"),
         .package(url: "https://github.com/Kamaalio/PopperUp.git", "0.4.1" ..< "0.5.0"),
         .package(url: "https://github.com/Kamaalio/InAppBrowserSUI.git", "2.1.0" ..< "3.0.0"),
-        .package(url: "https://github.com/kamaal111/GitHubAPI.git", "0.1.2" ..< "0.2.0"),
+        .package(url: "https://github.com/kamaal111/GitHubAPI.git", "0.1.3" ..< "0.2.0"),
         .package(url: "https://github.com/simibac/ConfettiSwiftUI.git", "1.0.0" ..< "2.0.0"),
     ],
     targets: [

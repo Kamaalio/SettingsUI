@@ -14,8 +14,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/kamaal111/GitHubAPI.git",
       "state" : {
-        "revision" : "61cf801b44ad22cbce46235231f91075e482b58e",
-        "version" : "0.1.2"
+        "revision" : "ac1be5e4c09829e672262f2ef96c7d20d0c8e105",
+        "version" : "0.1.3"
       }
     },
     {
