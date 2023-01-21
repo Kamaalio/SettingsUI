@@ -21,7 +21,19 @@ struct ContentView: View {
         NavigationView {
             if shouldHaveASidebar {
                 List {
-                    Text("Sidbar")
+                    Section(header: Text("Actions")) {
+                        Button(action: {
+                            let newLanguage = languageOptions.randomElement()!
+                            selectedLanguageOption = newLanguage
+                            print(newLanguage)
+                        }) {
+                            Text("Randomize language")
+                                .foregroundColor(.accentColor)
+                                .bold()
+                        }
+                        .buttonStyle(.plain)
+                    }
+                    .accentColor(appColor.color)
                 }
             }
             SettingsScreen(configuration: settingsConfiguration)
@@ -106,6 +118,7 @@ struct ContentView: View {
 let languageOptions: [Preference.Option] = [
     .init(id: UUID(uuidString: "067fb9e5-af94-4425-965b-ebd70e7f9e56")!, label: "English"),
     .init(id: UUID(uuidString: "37c735d7-0804-469b-9219-ece30b0cbe4a")!, label: "Dutch"),
+    .init(id: UUID(uuidString: "0a8db1a5-fe1c-44cf-ba66-15ce2da1fab3")!, label: "French"),
 ]
 
 let appIcons: [AppIcon] = [
