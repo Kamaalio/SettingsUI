@@ -17,7 +17,7 @@ struct PreferenceRow: View {
     init(preference: Preference, onChange: @escaping (_ newPreference: Preference) -> Void) {
         self.preference = preference
         self.onChange = onChange
-        self._selectedOption = State(wrappedValue: preference.selectedOption)
+        self._selectedOption = State(initialValue: preference.selectedOption)
     }
 
     var body: some View {
@@ -42,6 +42,11 @@ struct PreferenceRow: View {
                 options: preference.options
             )
             onChange(newPreference)
+        })
+        .onChange(of: preference, perform: { newValue in
+            if selectedOption != newValue.selectedOption {
+                selectedOption = newValue.selectedOption
+            }
         })
     }
 }
