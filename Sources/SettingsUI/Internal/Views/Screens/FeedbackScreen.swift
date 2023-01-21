@@ -148,9 +148,8 @@ private final class ViewModel: ObservableObject {
 
             \(feedbackConfiguration.additionalDataString ?? "{}")
             """
-            let issue: GitHubIssue
             do {
-                issue = try await gitHubAPI.repos.createIssue(
+                _ = try await gitHubAPI.repos.createIssue(
                     username: feedbackConfiguration.username,
                     repoName: feedbackConfiguration.repoName,
                     title: title,
@@ -164,7 +163,7 @@ private final class ViewModel: ObservableObject {
                 return
             }
 
-            logger.info("feedback sent; issue='\(issue)'")
+            logger.info("feedback sent")
             await setToastType(to: .success)
 
             DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
