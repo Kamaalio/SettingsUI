@@ -39,6 +39,10 @@ struct LogsScreen: View {
             #endif
             KScrollableForm {
                 KSection {
+                    if logs.isEmpty {
+                        AppText(localizedString: "No logs available", comment: "")
+                            .ktakeWidthEagerly(alignment: .leading)
+                    }
                     ForEach(logs, id: \.self) { item in
                         LogRow(log: item, action: onLogPress)
                         #if os(macOS)
